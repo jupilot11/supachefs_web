@@ -1,0 +1,36 @@
+{
+  "store": {
+    "app_store_url": null,
+    "play_store_url": null
+  },
+  "social": {
+    "facebook_url": null,
+    "instagram_url": null,
+    "tiktok_url": null
+  },
+  "contact": {
+    "email": "admin@supachefs.com",
+    "messenger_url": null
+  },
+  "chef_form": {
+    "areas": [
+      "Lahug",
+      "Mandaue",
+      "Talamban",
+      "Banilad",
+      "Mabolo",
+      "Talisay",
+      "Guadalupe",
+      "Somewhere else in Cebu"
+    ],
+    "heard_from": [
+      "Facebook",
+      "Instagram",
+      "TikTok",
+      "A friend or family member",
+      "Another SupaChefs chef",
+      "Other"
+    ]
+  },
+  "platform_fee_percent": 10
+}

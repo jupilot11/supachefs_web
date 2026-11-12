@@ -1,0 +1,6 @@
+node_modules
+.next
+src/lib/cms/fixtures/*.json
+package-lock.json
+screenshots
+test-results

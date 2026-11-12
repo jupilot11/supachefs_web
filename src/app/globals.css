@@ -1,0 +1,168 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* SupaChefs tokens, mapped from website-plan/design-reference/tokens.css.
+   Closed warm palette: no cool greys, no pure black. */
+:root {
+  --orange-wash: #fff4f0;
+  --orange-tint: #fde9e2;
+  --orange-mid: #f9c4ae;
+  --orange-light: #ff6b3d;
+  --orange: #e84c1e;
+  --orange-dark: #c03a10;
+  --orange-deep: #8c2708;
+  --rust-tint: #f5e6df;
+  --rust: #b84a2a;
+  --rust-deep: #7a2e16;
+  --white: #ffffff;
+  --off-white: #faf7f5;
+  --bg-subtle: #f5f0ed;
+  --sand-light: #eae2dc;
+  --sand: #d4c8c0;
+  --warm-gray-light: #a89e98;
+  --warm-gray: #6b5b52;
+  --brown-mid: #4a3830;
+  --charcoal: #2a1f1a;
+  --near-black: #1a1210;
+  --success: #3e7a33;
+  --error: #b42318;
+  --error-tint: #fdecea;
+
+  --brand: var(--orange);
+  --brand-hover: var(--orange-light);
+  --brand-pressed: var(--orange-dark);
+  --text-primary: var(--charcoal);
+  --text-secondary: var(--warm-gray);
+  --text-subhead: var(--brown-mid);
+  --text-on-tint: var(--orange-dark);
+
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --tap-min: 44px;
+
+  /* shadcn semantic variables, pointed at the brand palette */
+  --background: var(--white);
+  --foreground: var(--charcoal);
+  --card: var(--white);
+  --card-foreground: var(--charcoal);
+  --popover: var(--white);
+  --popover-foreground: var(--charcoal);
+  --muted: var(--bg-subtle);
+  --muted-foreground: var(--warm-gray);
+  --accent: var(--orange-wash);
+  --accent-foreground: var(--charcoal);
+  --destructive: var(--error);
+  --border: var(--sand-light);
+  --input: var(--sand);
+  --ring: var(--orange);
+  --radius: 0.75rem;
+}
+
+@theme inline {
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-lora), Georgia, serif;
+  --font-heading: var(--font-sans);
+
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-pressed: var(--brand-pressed);
+  --color-orange-wash: var(--orange-wash);
+  --color-orange-tint: var(--orange-tint);
+  --color-orange-mid: var(--orange-mid);
+  --color-orange-dark: var(--orange-dark);
+  --color-orange-deep: var(--orange-deep);
+  --color-rust: var(--rust);
+  --color-rust-tint: var(--rust-tint);
+  --color-off-white: var(--off-white);
+  --color-subtle: var(--bg-subtle);
+  --color-sand-light: var(--sand-light);
+  --color-sand: var(--sand);
+  --color-warm-gray: var(--warm-gray);
+  --color-brown-mid: var(--brown-mid);
+  --color-charcoal: var(--charcoal);
+  --color-near-black: var(--near-black);
+  --color-success: var(--success);
+  --color-error: var(--error);
+  --color-error-tint: var(--error-tint);
+
+  /* text-primary / text-secondary / text-subhead */
+  --color-primary: var(--text-primary);
+  --color-secondary: var(--text-secondary);
+  --color-subhead: var(--text-subhead);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+
+  --shadow-xs: 0 1px 2px rgba(42, 31, 26, 0.06);
+  --shadow-sm: 0 2px 8px rgba(42, 31, 26, 0.06);
+  --shadow-md: 0 6px 20px rgba(42, 31, 26, 0.08);
+  --shadow-lg: 0 12px 32px rgba(42, 31, 26, 0.12);
+  --shadow-brand: 0 8px 20px rgba(232, 76, 30, 0.3);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    @apply scroll-pt-24 font-sans antialiased;
+    color: var(--text-primary);
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+  /* Brand-orange focus ring on every interactive element */
+  :where(
+    a,
+    button,
+    input,
+    select,
+    textarea,
+    summary,
+    [tabindex]
+  ):focus-visible {
+    outline: 3px solid var(--orange);
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  .caps-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+  .container-page {
+    @apply mx-auto w-full max-w-[1280px] px-5 md:px-10 lg:px-24;
+  }
+}
+
+/* Motion fallbacks: reduced motion and no-JS show everything at once. */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

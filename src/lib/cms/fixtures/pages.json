@@ -1,0 +1,824 @@
+{
+  "home": {
+    "slug": "home",
+    "title": "Home",
+    "seo": {
+      "title": "SupaChefs: homemade meals from home chefs in Cebu",
+      "description": "Real meals from home chefs in Lahug, Mandaue, Talamban and Banilad. Every dish has a name and a face behind it.",
+      "og_image_url": null
+    },
+    "sections": [
+      {
+        "key": "hero",
+        "type": "hero",
+        "data": {
+          "eyebrow": "HOMEMADE MEALS · NOW LIVE IN CEBU",
+          "title": "Food that tastes like home, cooked by your neighbors.",
+          "body": "Real meals from home chefs in Lahug, Mandaue, Talamban and Banilad. Every dish has a name and a face behind it.",
+          "primary_cta": {
+            "label": "Download the App",
+            "href": "#download"
+          },
+          "secondary_cta": {
+            "label": "Cook with us",
+            "href": "/become-a-chef"
+          },
+          "image_url": null,
+          "image_caption": "Nena · Talamban · cooking humba today"
+        }
+      },
+      {
+        "key": "how_it_works",
+        "type": "steps",
+        "data": {
+          "eyebrow": "HOW IT WORKS",
+          "title": "Three steps to a home-cooked lunch",
+          "body": "",
+          "items": [
+            {
+              "title": "Find a chef near you",
+              "body": "See who's cooking in your area today and read their story.",
+              "chips": [],
+              "image_url": null
+            },
+            {
+              "title": "Order what they're cooking",
+              "body": "Pay with GCash, Maya or card. Your chef gets the order right away.",
+              "chips": [],
+              "image_url": null
+            },
+            {
+              "title": "Pick up or get it delivered",
+              "body": "Grab it from their door, or have Lalamove bring it to yours.",
+              "chips": [],
+              "image_url": null
+            }
+          ]
+        }
+      },
+      {
+        "key": "why",
+        "type": "cards",
+        "data": {
+          "eyebrow": "WHY SUPACHEFS",
+          "title": "The food you miss, without the fast-food guilt",
+          "body": "",
+          "items": [
+            {
+              "icon": "heart",
+              "title": "Healthier than fast food",
+              "body": "Cooked fresh in small batches with real ingredients. No heat lamps, no frozen patties."
+            },
+            {
+              "icon": "wallet",
+              "title": "More affordable than restaurants",
+              "body": "Homemade quality at a real price. You pay the chef, not the rent."
+            },
+            {
+              "icon": "chef-hat",
+              "title": "Made by a real person near you",
+              "body": "You know who cooked it and where. Message them like you would a neighbor."
+            }
+          ]
+        }
+      },
+      {
+        "key": "trust",
+        "type": "cards",
+        "data": {
+          "eyebrow": "TRUST & SAFETY",
+          "title": "Who's cooking your food? We check.",
+          "body": "",
+          "items": [
+            {
+              "icon": "shield-check",
+              "title": "Every chef is verified",
+              "body": "ID check, a conversation with our team, and an in-person kitchen visit before anyone goes live."
+            },
+            {
+              "icon": "badge-check",
+              "title": "Food safety on every order",
+              "body": "[Placeholder: permits + food safety orientation details.] Chefs follow our kitchen checklist every time they cook."
+            },
+            {
+              "icon": "star",
+              "title": "Real reviews from real customers",
+              "body": "Only people who ordered can rate. Every chef's rating is on their page."
+            }
+          ]
+        }
+      },
+      {
+        "key": "chefs",
+        "type": "chefs",
+        "data": {
+          "eyebrow": "MEET THE CHEFS",
+          "title": "Cooking in your neighborhood",
+          "items": [
+            {
+              "name": "Nena",
+              "area": "Talamban",
+              "cuisine": "Cebuano home cooking",
+              "dish": "Humba with saba",
+              "story": "Has cooked her mother's humba every Sunday for 30 years.",
+              "image_url": null
+            },
+            {
+              "name": "Jose",
+              "area": "Mabolo",
+              "cuisine": "Cebuano breakfast",
+              "dish": "Danggit Silog",
+              "story": "Fries danggit the way his lola did back in Bantayan.",
+              "image_url": null
+            },
+            {
+              "name": "Dodong",
+              "area": "Mandaue",
+              "cuisine": "Cebu street food",
+              "dish": "Ngohiong",
+              "story": "Rolled ngohiong at the family carinderia for 12 years.",
+              "image_url": null
+            },
+            {
+              "name": "Liza",
+              "area": "Lahug",
+              "cuisine": "Kapampangan",
+              "dish": "Kare-kare",
+              "story": "Grinds her own peanuts for the sauce. No packets, ever.",
+              "image_url": null
+            },
+            {
+              "name": "Tess",
+              "area": "Banilad",
+              "cuisine": "Filipino comfort food",
+              "dish": "Beef pochero",
+              "story": "Retired teacher. Cooks for her apo, and now for you.",
+              "image_url": null
+            }
+          ]
+        }
+      },
+      {
+        "key": "testimonial",
+        "type": "quote",
+        "data": {
+          "text": "Tasted exactly like my lola's pochero. I almost cried at my desk.",
+          "author": "Mae",
+          "author_meta": "works in IT Park",
+          "attribution": "Ordered from Tess · Banilad"
+        }
+      },
+      {
+        "key": "chef_cta",
+        "type": "cta",
+        "data": {
+          "eyebrow": "FOR HOME COOKS",
+          "title": "Your neighbors already love your cooking.",
+          "body": "Sell what you already cook, on your own schedule. Start with a few orders a week and pause anytime.",
+          "primary_cta": {
+            "label": "Become a Chef",
+            "href": "/become-a-chef"
+          },
+          "secondary_cta": {
+            "label": "How it works for chefs →",
+            "href": "/how-it-works/chefs"
+          }
+        }
+      },
+      {
+        "key": "download",
+        "type": "cta",
+        "data": {
+          "eyebrow": "",
+          "title": "Your next homemade meal is a tap away.",
+          "body": "Free on iPhone and Android. Browse chefs near you, order, and pay with GCash, Maya or card.",
+          "primary_cta": {
+            "label": "Download the App",
+            "href": "#download"
+          },
+          "secondary_cta": null
+        }
+      }
+    ],
+    "updated_at": "2026-11-12T06:57:55+00:00"
+  },
+  "how-it-works-customers": {
+    "slug": "how-it-works-customers",
+    "title": "How It Works: For Customers",
+    "seo": {
+      "title": "How SupaChefs works for customers",
+      "description": "Find a home chef near you, order and pay in the app, then pick up or get it delivered. Five easy steps.",
+      "og_image_url": null
+    },
+    "sections": [
+      {
+        "key": "hero",
+        "type": "hero",
+        "data": {
+          "eyebrow": "HOW IT WORKS · FOR CUSTOMERS",
+          "title": "Homemade food, ordered in five easy steps.",
+          "body": "No more scrolling Facebook posts and waiting for a reply. Find a chef, order, and eat.",
+          "primary_cta": {
+            "label": "Download the App",
+            "href": "#download"
+          },
+          "secondary_cta": {
+            "label": "Read the FAQs",
+            "href": "/faqs"
+          },
+          "image_url": null,
+          "image_caption": ""
+        }
+      },
+      {
+        "key": "steps",
+        "type": "steps",
+        "data": {
+          "eyebrow": "",
+          "title": "From craving to doorstep",
+          "body": "",
+          "items": [
+            {
+              "title": "Download the app",
+              "body": "Free on iPhone and Android. Sign up with your mobile number.",
+              "chips": [],
+              "image_url": null
+            },
+            {
+              "title": "Browse chefs near you",
+              "body": "Search by area or craving. Every chef has a photo, a story and real reviews.",
+              "chips": [],
+              "image_url": null
+            },
+            {
+              "title": "Pick a meal",
+              "body": "See what each chef is cooking today, how many plates are left, and when it's ready.",
+              "chips": [],
+              "image_url": null
+            },
+            {
+              "title": "Order and pay",
+              "body": "Pay in the app. Your chef confirms and starts cooking.",
+              "chips": [
+                "GCash",
+                "Maya",
+                "Card"
+              ],
+              "image_url": null
+            },
+            {
+              "title": "Pickup or delivery",
+              "body": "Collect from your chef's door, or have Lalamove bring it. Track every step.",
+              "chips": [
+                "Lalamove delivery",
+                "Self pickup"
+              ],
+              "image_url": null
+            }
+          ]
+        }
+      },
+      {
+        "key": "difference",
+        "type": "comparison",
+        "data": {
+          "eyebrow": "THE DIFFERENCE",
+          "title": "Not another delivery app.",
+          "body": "Same convenience. Completely different kitchen.",
+          "us_label": "SupaChefs",
+          "them_label": "Typical delivery app",
+          "rows": [
+            {
+              "label": "Who cooks",
+              "us": "A named home chef near you",
+              "them": "A restaurant or cloud kitchen"
+            },
+            {
+              "label": "What's on the menu",
+              "us": "What they're cooking today, in small batches",
+              "them": "The same menu, every day"
+            },
+            {
+              "label": "Who you talk to",
+              "us": "Your chef, directly in the app",
+              "them": "A support bot"
+            },
+            {
+              "label": "What you pay for",
+              "us": "The food and the chef's time",
+              "them": "Rent, markups and extra fees"
+            }
+          ]
+        }
+      },
+      {
+        "key": "trust",
+        "type": "cards",
+        "data": {
+          "eyebrow": "TRUST & SAFETY",
+          "title": "You'll always know who cooked your food.",
+          "body": "",
+          "items": [
+            {
+              "icon": "shield-check",
+              "title": "Verified chefs",
+              "body": "Every chef shows ID and talks with our team before they can sell."
+            },
+            {
+              "icon": "map-pin",
+              "title": "Kitchen visits",
+              "body": "We visit every kitchen in person before a chef goes live."
+            },
+            {
+              "icon": "badge-check",
+              "title": "Food safety standards",
+              "body": "[Placeholder: permits, orientation and kitchen checklist details.]"
+            },
+            {
+              "icon": "star",
+              "title": "Honest reviews, real help",
+              "body": "Only customers who ordered can review. Problems get sorted by our Cebu team within 24 hours."
+            }
+          ]
+        }
+      },
+      {
+        "key": "faq",
+        "type": "faq_preview",
+        "data": {
+          "title": "Quick questions",
+          "audience": "customers",
+          "limit": 4
+        }
+      },
+      {
+        "key": "cta",
+        "type": "cta",
+        "data": {
+          "eyebrow": "Hungry yet?",
+          "title": "Nena, Jose and Dodong are cooking today.",
+          "body": "",
+          "primary_cta": {
+            "label": "Download the App",
+            "href": "#download"
+          },
+          "secondary_cta": {
+            "label": "Love to cook? See how it works for chefs →",
+            "href": "/how-it-works/chefs"
+          }
+        }
+      }
+    ],
+    "updated_at": "2026-11-12T06:47:41+00:00"
+  },
+  "how-it-works-chefs": {
+    "slug": "how-it-works-chefs",
+    "title": "How It Works: For Chefs",
+    "seo": {
+      "title": "How SupaChefs works for chefs",
+      "description": "Sell the food you already cook, from your own kitchen, on your own schedule. No minimums. Pause whenever life gets busy.",
+      "og_image_url": null
+    },
+    "sections": [
+      {
+        "key": "hero",
+        "type": "hero",
+        "data": {
+          "eyebrow": "HOW IT WORKS · FOR CHEFS",
+          "title": "You cook. We handle the rest.",
+          "body": "Sell the food you already cook, from your own kitchen, on your own schedule. No minimums. Pause whenever life gets busy.",
+          "primary_cta": {
+            "label": "Become a Chef",
+            "href": "/become-a-chef"
+          },
+          "secondary_cta": {
+            "label": "Read chef FAQs",
+            "href": "/faqs#chefs"
+          },
+          "image_url": null,
+          "image_caption": ""
+        }
+      },
+      {
+        "key": "steps",
+        "type": "steps",
+        "data": {
+          "eyebrow": "",
+          "title": "Four steps to your first order",
+          "body": "",
+          "items": [
+            {
+              "title": "Apply",
+              "body": "A 10-minute form. Tell us who you are and what you love to cook.",
+              "chips": [],
+              "image_url": null
+            },
+            {
+              "title": "Get onboarded",
+              "body": "A short call, a friendly kitchen visit, and a free food safety orientation.",
+              "chips": [],
+              "image_url": null
+            },
+            {
+              "title": "Set your menu and schedule",
+              "body": "Pick your dishes, prices, cooking days and how many plates you'll make.",
+              "chips": [],
+              "image_url": null
+            },
+            {
+              "title": "Cook and get paid",
+              "body": "Orders come in through the app. Payouts go straight to you.",
+              "chips": [],
+              "image_url": null
+            }
+          ]
+        }
+      },
+      {
+        "key": "control",
+        "type": "cards",
+        "data": {
+          "eyebrow": "YOUR KITCHEN, YOUR RULES",
+          "title": "You control everything.",
+          "body": "",
+          "items": [
+            {
+              "icon": "utensils",
+              "title": "Your menu",
+              "body": "Cook what you're proud of. Change it anytime."
+            },
+            {
+              "icon": "clock",
+              "title": "Your hours",
+              "body": "Pick your cooking days. Weekends only is fine."
+            },
+            {
+              "icon": "hand-coins",
+              "title": "Your volume",
+              "body": "Cap plates per day. Start with 5 if that feels right."
+            },
+            {
+              "icon": "pause",
+              "title": "Pause anytime",
+              "body": "Busy week? Sick kid? Tap pause. No penalties."
+            }
+          ]
+        }
+      },
+      {
+        "key": "handles",
+        "type": "cards",
+        "data": {
+          "eyebrow": "OFF YOUR PLATE",
+          "title": "What SupaChefs handles for you",
+          "body": "",
+          "items": [
+            {
+              "icon": "calendar",
+              "title": "Orders",
+              "body": "Customers order and pay in the app. You see exactly what to cook and when."
+            },
+            {
+              "icon": "wallet",
+              "title": "Payments",
+              "body": "GCash, Maya and card, collected for you. No chasing anyone for bayad."
+            },
+            {
+              "icon": "message-circle",
+              "title": "Customer messages",
+              "body": "One inbox for questions, so your personal Messenger stays personal."
+            },
+            {
+              "icon": "map-pin",
+              "title": "Visibility",
+              "body": "Your profile, your story and your dishes, in front of hungry people nearby."
+            }
+          ]
+        }
+      },
+      {
+        "key": "earnings",
+        "type": "earnings",
+        "data": {
+          "eyebrow": "EARNINGS",
+          "title": "How you get paid",
+          "body": "You set your prices. We take a small fee per order. Tips are 100% yours.",
+          "rows": [
+            {
+              "label": "Example: 10 plates of humba × ₱180",
+              "value": "₱1,800"
+            },
+            {
+              "label": "SupaChefs fee [XX%]",
+              "value": "−₱[—]"
+            },
+            {
+              "label": "Tips (100% yours)",
+              "value": "+₱[—]"
+            }
+          ],
+          "payout_schedule": "[schedule TBD]",
+          "payout_method": "[GCash / bank TBD]"
+        }
+      },
+      {
+        "key": "faq",
+        "type": "faq_preview",
+        "data": {
+          "title": "What chefs ask us",
+          "audience": "chefs",
+          "limit": 4
+        }
+      },
+      {
+        "key": "cta",
+        "type": "cta",
+        "data": {
+          "eyebrow": "",
+          "title": "Ready to try? Start small.",
+          "body": "No commitment until you say go.",
+          "primary_cta": {
+            "label": "Become a Chef",
+            "href": "/become-a-chef"
+          },
+          "secondary_cta": {
+            "label": "Just hungry? Download the App →",
+            "href": "#download"
+          }
+        }
+      }
+    ],
+    "updated_at": "2026-11-12T06:47:41+00:00"
+  },
+  "become-a-chef": {
+    "slug": "become-a-chef",
+    "title": "Become a Chef",
+    "seo": {
+      "title": "Become a SupaChefs home chef",
+      "description": "No minimum orders. No pressure. Cook 5 plates a week or 50, and pause whenever life gets busy. Apply in 10 minutes.",
+      "og_image_url": null
+    },
+    "sections": [
+      {
+        "key": "hero",
+        "type": "hero",
+        "data": {
+          "eyebrow": "BECOME A CHEF",
+          "title": "Start small. Cook when you can.",
+          "body": "No minimum orders. No pressure. Cook 5 plates a week or 50, and pause whenever life gets busy. You set the pace. Our Cebu team helps you start.",
+          "primary_cta": {
+            "label": "Apply Here",
+            "href": "#apply"
+          },
+          "secondary_cta": {
+            "label": "How it works for chefs →",
+            "href": "/how-it-works/chefs"
+          },
+          "image_url": null,
+          "image_caption": ""
+        }
+      },
+      {
+        "key": "requirements",
+        "type": "cards",
+        "data": {
+          "eyebrow": "",
+          "title": "What you need to start",
+          "body": "If you're reading this, you probably have most of it already.",
+          "items": [
+            {
+              "icon": "heart",
+              "title": "You love cooking",
+              "body": "And people already ask for seconds."
+            },
+            {
+              "icon": "chef-hat",
+              "title": "A clean home kitchen",
+              "body": "Your everyday kitchen is fine. No commercial setup needed."
+            },
+            {
+              "icon": "wallet",
+              "title": "A smartphone",
+              "body": "With GCash or Maya for payouts."
+            },
+            {
+              "icon": "badge-check",
+              "title": "One valid ID",
+              "body": "Any government-issued ID."
+            },
+            {
+              "icon": "shield-check",
+              "title": "[Placeholder: permits]",
+              "body": "e.g. barangay clearance, sanitary or health permit. We help you get what you need."
+            },
+            {
+              "icon": "utensils",
+              "title": "Food safety orientation",
+              "body": "[Placeholder: format + length.] We run it with you during onboarding."
+            }
+          ]
+        }
+      },
+      {
+        "key": "after",
+        "type": "steps",
+        "data": {
+          "eyebrow": "",
+          "title": "What happens after you apply",
+          "body": "",
+          "items": [
+            {
+              "title": "We text you to say we got it",
+              "body": "So you're not left wondering.",
+              "chips": [
+                "SAME DAY"
+              ],
+              "image_url": null
+            },
+            {
+              "title": "A short, friendly call",
+              "body": "We get to know you and your cooking. 15 minutes, no test.",
+              "chips": [
+                "WITHIN 3 DAYS"
+              ],
+              "image_url": null
+            },
+            {
+              "title": "Kitchen visit + food safety orientation",
+              "body": "We visit your home kitchen and go through the checklist together.",
+              "chips": [
+                "WEEK 1"
+              ],
+              "image_url": null
+            },
+            {
+              "title": "Set your menu and go live",
+              "body": "Start with one dish and a few plates. Grow when you want to.",
+              "chips": [
+                "WHEN YOU'RE READY"
+              ],
+              "image_url": null
+            }
+          ]
+        }
+      },
+      {
+        "key": "faq",
+        "type": "faq_preview",
+        "data": {
+          "title": "Chef questions",
+          "audience": "chefs",
+          "limit": 5
+        }
+      }
+    ],
+    "updated_at": "2026-11-12T06:47:41+00:00"
+  },
+  "about": {
+    "slug": "about",
+    "title": "About",
+    "seo": {
+      "title": "About SupaChefs",
+      "description": "The best food in Cebu was always in someone's home. Meet the people building SupaChefs.",
+      "og_image_url": null
+    },
+    "sections": [
+      {
+        "key": "hero",
+        "type": "hero",
+        "data": {
+          "eyebrow": "ABOUT SUPACHEFS",
+          "title": "The best food in Cebu was always in someone's home.",
+          "body": "",
+          "primary_cta": {
+            "label": "Download the App",
+            "href": "#download"
+          },
+          "secondary_cta": null,
+          "image_url": null,
+          "image_caption": ""
+        }
+      },
+      {
+        "key": "story",
+        "type": "rich_text",
+        "data": {
+          "eyebrow": "HOW IT STARTED",
+          "title": "It started in a Facebook group.",
+          "paragraphs": [
+            "[Founder name] kept seeing the same thing in Cebu food groups: incredible home cooks selling humba and ngohiong through posts and comments, customers sending GCash to strangers and hoping for the best, orders lost somewhere in Messenger.",
+            "The food was great. The way to get it wasn't. Nobody knew who was safe, who was real, or who was still cooking that day.",
+            "So we built SupaChefs: a way for those cooks to get found, get paid, and get trusted, and for the rest of us to eat like we're home. [Placeholder: founding year + first chefs detail.]"
+          ]
+        }
+      },
+      {
+        "key": "mission",
+        "type": "rich_text",
+        "data": {
+          "eyebrow": "OUR MISSION",
+          "title": "The future of food is local, personal, and shared.",
+          "paragraphs": [
+            "We want every neighborhood in Cebu to have a few kitchens people trust, and every good home cook to have a fair way to earn from what they love."
+          ]
+        }
+      },
+      {
+        "key": "values",
+        "type": "cards",
+        "data": {
+          "eyebrow": "",
+          "title": "What we believe",
+          "body": "",
+          "items": [
+            {
+              "icon": "heart",
+              "title": "A real person first",
+              "body": "Every meal has a name and a face behind it."
+            },
+            {
+              "icon": "badge-check",
+              "title": "Honest and direct",
+              "body": "Clear prices, real reviews, no hype."
+            },
+            {
+              "icon": "pause",
+              "title": "Start small, grow steady",
+              "body": "For our chefs, and for us."
+            },
+            {
+              "icon": "map-pin",
+              "title": "Neighbors feeding neighbors",
+              "body": "The money stays in the barangay."
+            },
+            {
+              "icon": "star",
+              "title": "Made in Cebu",
+              "body": "Built here, for here, by people who live here."
+            }
+          ]
+        }
+      },
+      {
+        "key": "team",
+        "type": "chefs",
+        "data": {
+          "eyebrow": "THE TEAM",
+          "title": "The people behind SupaChefs",
+          "items": [
+            {
+              "name": "[Name]",
+              "area": "Co-founder · CEO",
+              "cuisine": "",
+              "dish": "",
+              "story": "",
+              "image_url": null
+            },
+            {
+              "name": "[Name]",
+              "area": "Co-founder · Operations",
+              "cuisine": "",
+              "dish": "",
+              "story": "",
+              "image_url": null
+            },
+            {
+              "name": "[Name]",
+              "area": "Chef Success",
+              "cuisine": "",
+              "dish": "",
+              "story": "",
+              "image_url": null
+            },
+            {
+              "name": "[Name]",
+              "area": "Community · Cebu",
+              "cuisine": "",
+              "dish": "",
+              "story": "",
+              "image_url": null
+            }
+          ]
+        }
+      },
+      {
+        "key": "cta",
+        "type": "cta",
+        "data": {
+          "eyebrow": "",
+          "title": "Come eat with us. Or cook with us.",
+          "body": "Hungry for home cooking? Find a chef near you. Love to cook? Start small, on your own schedule.",
+          "primary_cta": {
+            "label": "Download the App",
+            "href": "#download"
+          },
+          "secondary_cta": {
+            "label": "Become a Chef",
+            "href": "/become-a-chef"
+          }
+        }
+      }
+    ],
+    "updated_at": "2026-11-12T06:47:41+00:00"
+  }
+}

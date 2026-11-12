@@ -1,0 +1,127 @@
+{
+  "customers": {
+    "audience": "customers",
+    "groups": [
+      {
+        "topic": "Ordering",
+        "items": [
+          {
+            "id": 1,
+            "question": "How do I order?",
+            "answer": "Download the app, pick a chef near you, choose a dish and pay. Your chef gets the order right away."
+          },
+          {
+            "id": 2,
+            "question": "How far ahead should I order?",
+            "answer": "Some chefs cook same-day; others take pre-orders the night before. Every dish shows its ready time."
+          },
+          {
+            "id": 3,
+            "question": "Can I order from two chefs at once?",
+            "answer": "One kitchen per order for now, so each chef can cook and pack yours properly."
+          }
+        ]
+      },
+      {
+        "topic": "Payment",
+        "items": [
+          {
+            "id": 4,
+            "question": "How can I pay?",
+            "answer": "GCash, Maya or card, all inside the app. No sending money to strangers."
+          },
+          {
+            "id": 5,
+            "question": "Is there a delivery fee?",
+            "answer": "Lalamove delivery has a fee you see before paying. Pickup from your chef is free."
+          },
+          {
+            "id": 6,
+            "question": "Can I tip my chef?",
+            "answer": "Yes. 100% of tips go to the chef."
+          }
+        ]
+      },
+      {
+        "topic": "Safety",
+        "items": [
+          {
+            "id": 7,
+            "question": "How do you check chefs?",
+            "answer": "ID check, a call with our team, and an in-person kitchen visit before anyone goes live."
+          },
+          {
+            "id": 8,
+            "question": "What food safety standards do chefs follow?",
+            "answer": "[Placeholder: permits, orientation and kitchen checklist details.]"
+          },
+          {
+            "id": 9,
+            "question": "What if something's wrong with my food?",
+            "answer": "Report it in the app within 24 hours. A real person on our Cebu team will make it right."
+          }
+        ]
+      }
+    ]
+  },
+  "chefs": {
+    "audience": "chefs",
+    "groups": [
+      {
+        "topic": "Onboarding",
+        "items": [
+          {
+            "id": 10,
+            "question": "How long does it take to start?",
+            "answer": "Usually 1–2 weeks: a short call, a kitchen visit, an orientation, then you set up your menu."
+          },
+          {
+            "id": 11,
+            "question": "Do I need a business permit?",
+            "answer": "[Placeholder: permit requirements.] We walk you through it during onboarding."
+          },
+          {
+            "id": 12,
+            "question": "Do I need special equipment?",
+            "answer": "No. If you cook for your family now, your kitchen is probably ready."
+          }
+        ]
+      },
+      {
+        "topic": "Earning",
+        "items": [
+          {
+            "id": 13,
+            "question": "How much does SupaChefs take?",
+            "answer": "[Placeholder: fee %.] You set your own prices, and tips are 100% yours."
+          },
+          {
+            "id": 14,
+            "question": "When do I get paid?",
+            "answer": "[Placeholder: payout schedule] straight to your [GCash / bank]."
+          },
+          {
+            "id": 15,
+            "question": "Can I set a limit on orders?",
+            "answer": "Yes. Set a daily cap and the app stops taking orders when you hit it."
+          }
+        ]
+      },
+      {
+        "topic": "Running your kitchen",
+        "items": [
+          {
+            "id": 16,
+            "question": "Can I pause my kitchen?",
+            "answer": "Anytime, from the app. No penalties."
+          },
+          {
+            "id": 17,
+            "question": "Who handles customer complaints?",
+            "answer": "Our Cebu team, together with you. You're never on your own."
+          }
+        ]
+      }
+    ]
+  }
+}
