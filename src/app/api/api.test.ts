@@ -138,4 +138,13 @@ describe("/api/revalidate", () => {
     expect(revalidateTag).toHaveBeenCalledWith("page:home", { expire: 0 });
     expect(revalidateTag).toHaveBeenCalledWith("faqs", { expire: 0 });
   });
+
+  it("also refreshes the live chefs and reviews on demand", async () => {
+    const res = await post("test-revalidate-secret", {
+      tags: ["top-chefs", "testimonials"],
+    });
+    expect(res.status).toBe(200);
+    expect(revalidateTag).toHaveBeenCalledWith("top-chefs", { expire: 0 });
+    expect(revalidateTag).toHaveBeenCalledWith("testimonials", { expire: 0 });
+  });
 });

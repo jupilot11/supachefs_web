@@ -30,6 +30,7 @@ export default defineConfig({
       reuseExistingServer: true,
       env: {
         CMS_FIXTURES: "1",
+        CMS_FIXTURES_IN_PROD: "1",
         API_BASE_URL: "http://localhost:4010",
         SITE_SERVER_SECRET: "dev-server-secret",
         SITE_REVALIDATE_SECRET: "dev-revalidate-secret",

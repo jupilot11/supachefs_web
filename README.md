@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SupaChefs web
 
-## Getting Started
+Marketing site for SupaChefs (Next.js App Router, Tailwind 4). Page content comes from the Laravel
+CMS API; the chef application form posts to the same API.
 
-First, run the development server:
+## Setup
 
 ```bash
+cp .env.example .env.local   # fill every value, see below
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The server checks the environment when it starts (`src/instrumentation.ts`) and stops with a message
+listing every missing or invalid variable. `next dev` therefore needs a complete `.env.local`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Variable | Used for |
+| --- | --- |
+| `API_BASE_URL` | Laravel API origin. Required for any production build, also used for `next/image` hosts (`*.supachefs.com` CDN hosts are allowed too, see `next.config.ts`). |
+| `SITE_SERVER_SECRET` | Sent as `X-Site-Secret` on every API call. |
+| `SITE_REVALIDATE_SECRET` | Protects `POST /api/revalidate`. |
+| `SITE_PREVIEW_TOKEN` | Signs preview links and authorises draft reads. |
+| `NEXT_PUBLIC_SITE_URL` | Canonical URL, sitemap, metadata. |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Cloudflare Turnstile on the chef form. |
+| `CMS_FIXTURES` | `1` reads `src/lib/cms/fixtures` instead of the API (dev, tests). |
+| `CMS_FIXTURES_IN_PROD` | Must also be `1` for a production build to accept fixtures. Only the e2e config sets it. |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Content and caching
 
-## Learn More
+Pages are static and tagged (`page:<slug>`, `faqs`, `settings`, `legal`). The CMS refreshes them by
+calling:
 
-To learn more about Next.js, take a look at the following resources:
+```
+POST /api/revalidate
+x-revalidate-secret: <SITE_REVALIDATE_SECRET>
+{ "tags": ["page:home", "faqs"] }
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Preview link:** `/api/draft?slug=<slug>&exp=<unix seconds>&sig=<hex>` where `sig` is the hex
+HMAC-SHA256 of `"<slug>|<exp>"` keyed with `SITE_PREVIEW_TOKEN`. It turns draft mode on for every page
+in that browser; `/api/draft?exit=1` turns it off.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Checks
 
-## Deploy on Vercel
+```bash
+npm run lint
+npx tsc --noEmit
+npm test        # unit tests (vitest)
+npm run e2e     # builds the app with fixtures and a mock API, then runs Playwright
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+CI (`.github/workflows/ci.yml`) runs all four.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deploying
+
+- Response headers are set in `next.config.ts` (CSP limited to `frame-ancestors 'self'`, `base-uri`,
+  `object-src`, plus `nosniff` and `Referrer-Policy`). Add the CMS admin origin to `frame-ancestors`
+  if the admin embeds previews. Set HSTS at the host or CDN.
+- The chef form forwards the leftmost `X-Forwarded-For` value to the API as `X-Client-IP`. Confirm how
+  your host treats that header before relying on per-IP rate limits.

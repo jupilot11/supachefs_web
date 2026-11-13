@@ -1,98 +1,79 @@
 "use client";
 
 import Image from "next/image";
-import { Apple, Play } from "lucide-react";
 import { cn } from "cn";
 import type { Settings } from "@/lib/cms/schemas";
 import { usePlatform } from "./use-platform";
 
 type Store = Settings["store"];
 
+/** Apple's and Google's own badge artwork, unaltered (their brand rules), scaled evenly to 44px tall: the touch-target minimum. */
+const BADGES = {
+  ios: {
+    src: "/badges/app-store.svg",
+    alt: "Download on the App Store",
+    width: 120,
+  },
+  android: {
+    src: "/badges/google-play.svg",
+    alt: "Get it on Google Play",
+    width: 135,
+  },
+} as const;
+
 function Badge({
   href,
-  kicker,
-  name,
-  icon,
+  badge,
 }: {
   href: string;
-  kicker: string;
-  name: string;
-  icon: React.ReactNode;
+  badge: (typeof BADGES)[keyof typeof BADGES];
 }) {
   return (
     <a
       href={href}
-      className="inline-flex h-[50px] min-w-[170px] items-center gap-2.5 rounded-[10px] bg-near-black pr-[18px] pl-3 text-white transition-transform duration-150 ease-out hover:-translate-y-px active:translate-y-px"
+      className="inline-flex transition-transform duration-150 ease-out hover:-translate-y-px active:translate-y-px"
     >
-      <span aria-hidden="true" className="grid size-6 place-items-center">
-        {icon}
-      </span>
-      <span className="flex flex-col leading-tight">
-        <span className="text-[10px]">{kicker}</span>
-        <span className="text-[17px] font-semibold tracking-[-0.01em]">
-          {name}
-        </span>
-      </span>
+      <Image
+        src={badge.src}
+        alt={badge.alt}
+        width={badge.width}
+        height={40}
+        unoptimized
+        className="h-11 w-auto"
+      />
     </a>
   );
 }
 
 /**
- * Phone: only the matching store badge. Desktop (and before hydration): both,
- * plus a QR code when `qr` is set. A store URL the admin left empty falls back
- * to /download, which redirects at request time.
+ * Only the stores whose link the admin set. Phone: only the matching store.
+ * Desktop (and before hydration): every set store. With no store set it
+ * renders nothing.
  */
 export function StoreBadges({
   store,
-  qr = false,
   row = false,
   className,
 }: {
   store: Store;
-  qr?: boolean;
   row?: boolean;
   className?: string;
 }) {
   const platform = usePlatform();
-  const ios = store.app_store_url ?? "/download";
-  const android = store.play_store_url ?? "/download";
-  const showIos = platform !== "android";
-  const showAndroid = platform !== "ios";
-  const showQr = qr && (platform === "desktop" || platform === "server");
+  const showIos = Boolean(store.app_store_url) && platform !== "android";
+  const showAndroid = Boolean(store.play_store_url) && platform !== "ios";
+  if (!showIos && !showAndroid) return null;
 
   return (
     <div className={cn("flex items-center gap-4", className)}>
-      {showQr && (
-        <div className="hidden shrink-0 flex-col items-center gap-1.5 lg:flex">
-          <Image
-            src="/download-qr.svg"
-            alt="QR code: scan with your phone to download the SupaChefs app"
-            width={112}
-            height={112}
-            unoptimized
-            className="rounded-[10px] border-[1.5px] border-brand bg-white p-2.5"
-          />
-          <span className="text-xs text-secondary">Scan to download</span>
-        </div>
-      )}
       <div
         className={cn("flex gap-2.5", row ? "flex-row flex-wrap" : "flex-col")}
       >
         {showIos && (
-          <Badge
-            href={ios}
-            kicker="Download on the"
-            name="App Store"
-            icon={<Apple className="size-5 fill-current" />}
-          />
+          <Badge href={store.app_store_url as string} badge={BADGES.ios} />
         )}
         {showAndroid && (
-          <Badge
-            href={android}
-            kicker="GET IT ON"
-            name="Google Play"
-            icon={<Play className="size-5 fill-current" />}
-          />
+          <Badge href={store.play_store_url as string} badge={BADGES.android} />
         )}
       </div>
     </div>

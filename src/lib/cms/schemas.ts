@@ -1,6 +1,15 @@
 import { z } from "zod";
 
-const url = z.string().nullable();
+// Links come from the CMS. React 19 already blocks javascript: hrefs; this states what we accept.
+// An unset store or social link may arrive as "" and means null.
+const url = z
+  .union([z.literal(""), z.string().regex(/^https?:\/\//)])
+  .nullable()
+  .transform((v) => v || null);
+// Page-level CTA links: a site path, #anchor, absolute http(s), mailto or tel. Not "//host".
+const href = z
+  .string()
+  .regex(/^(?:|https?:\/\/.+|\/(?!\/).*|#.*|mailto:.+|tel:.+)$/);
 
 export const settingsSchema = z.object({
   store: z.object({ app_store_url: url, play_store_url: url }),
@@ -22,14 +31,14 @@ export type Settings = z.infer<typeof settingsSchema>;
 
 const str = z.string();
 const image = z.string().nullish();
-const cta = z.object({ label: str, href: str });
+const cta = z.object({ label: str, href });
 const nullableCta = cta.nullish();
 
 export const heroSchema = z.object({
   eyebrow: str,
   title: str,
   body: str,
-  primary_cta: cta,
+  primary_cta: nullableCta,
   secondary_cta: nullableCta,
   image_url: image,
   image_caption: str,
@@ -54,6 +63,9 @@ export const cardsSchema = z.object({
   title: str,
   body: str,
   items: z.array(z.object({ icon: str, title: str, body: str })),
+  // Added after launch: published pages saved earlier have neither key.
+  image_url: image,
+  link: nullableCta,
 });
 
 export const comparisonSchema = z.object({
@@ -114,6 +126,7 @@ export const ctaSchema = z.object({
   body: str,
   primary_cta: cta,
   secondary_cta: nullableCta,
+  image_url: image,
 });
 
 export const blockSchemas = {
@@ -193,6 +206,46 @@ export const legalSchema = z.object({
 });
 export type Legal = z.infer<typeof legalSchema>;
 export type LegalPage = "terms" | "privacy";
+
+// ---- Live data: real chefs and reviews from the app, never CMS copy ----
+const photo = z
+  .string()
+  .regex(/^https?:\/\//)
+  .nullable();
+
+export const topChefsSchema = z.object({
+  chefs: z.array(
+    z.object({
+      id: z.number(),
+      name: z.string().min(1),
+      area: z.string().nullable(),
+      cuisine: z.string().nullable(),
+      story: z.string().nullable(),
+      image_url: photo,
+      rating: z.number().nullable(),
+      reviews: z.number(),
+    }),
+  ),
+});
+export type TopChef = z.infer<typeof topChefsSchema>["chefs"][number];
+
+export const testimonialsSchema = z.object({
+  testimonials: z.array(
+    z.object({
+      id: z.number(),
+      text: z.string().min(1),
+      rating: z.number(),
+      author: z.string().min(1),
+      chef: z.string().nullable(),
+      area: z.string().nullable(),
+      dish: z.string().nullable(),
+      created_at: z.string(),
+    }),
+  ),
+});
+export type Testimonial = z.infer<
+  typeof testimonialsSchema
+>["testimonials"][number];
 
 export const PAGE_SLUGS = [
   "home",

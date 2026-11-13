@@ -1,5 +1,6 @@
 import { Reveal } from "@/components/motion/reveal";
 import type { BlockData, Settings } from "@/lib/cms/schemas";
+import { isFeeRow, parseAmount, receiveAmount } from "./earnings-math";
 import { Section, SectionHeader } from "./shared";
 
 const peso = (n: number) =>
@@ -42,10 +43,8 @@ export function Earnings({
   const pct = settings.platform_fee_percent;
   // The first row is the worked example. The fee row's "[XX%]" comes from settings, and its
   // amount and the net are derived from the live fee.
-  const example = Number(data.rows[0]?.value.replace(/[^\d.]/g, ""));
-  const known = Number.isFinite(example) && example > 0;
-  const fee = known ? (example * pct) / 100 : null;
-  const isFee = (label: string) => /fee/i.test(label);
+  const example = parseAmount(data.rows[0]?.value ?? "");
+  const calc = example === null ? null : receiveAmount(example, pct);
 
   return (
     <Section
@@ -60,23 +59,25 @@ export function Earnings({
       />
       <Reveal className="rounded-2xl border border-sand-light bg-white p-5 lg:p-8">
         <dl>
-          {data.rows.map((r) =>
-            isFee(r.label) ? (
+          {data.rows.map((r, idx) =>
+            isFeeRow(r.label) ? (
               <Row
-                key={r.label}
+                key={`${idx}-${r.label}`}
                 label={r.label.replace(/\[XX%\]/, `(${pct}%)`)}
-                value={fee === null ? r.value : `−${peso(fee)}`}
+                value={calc ? `−${peso(calc.fee)}` : r.value}
               />
             ) : (
-              <Row key={r.label} label={r.label} value={r.value} />
+              <Row key={`${idx}-${r.label}`} label={r.label} value={r.value} />
             ),
           )}
-          <div className="flex items-baseline justify-between gap-4 pt-4">
-            <dt className="font-bold text-primary">You receive</dt>
-            <dd className="text-2xl font-extrabold text-orange-dark">
-              {fee === null ? "₱[—]" : peso(example - fee)}
-            </dd>
-          </div>
+          {calc && (
+            <div className="flex items-baseline justify-between gap-4 pt-4">
+              <dt className="font-bold text-primary">You receive</dt>
+              <dd className="text-2xl font-extrabold text-orange-dark">
+                {peso(calc.net)}
+              </dd>
+            </div>
+          )}
         </dl>
         <p className="mt-5 text-sm text-secondary">
           Payouts: {data.payout_schedule} to your {data.payout_method}.

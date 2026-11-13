@@ -53,6 +53,9 @@ export function Nav({ store }: { store: Settings["store"] }) {
     (href === "/" ? pathname === "/" : pathname.startsWith(href))
       ? "page"
       : undefined;
+  // A cook reading the chef pages gets the chef action in the header; everyone else gets the download.
+  const onApply = pathname.startsWith("/become-a-chef");
+  const chefSide = onApply || pathname.startsWith("/how-it-works/chefs");
 
   return (
     <header className="sticky top-0 z-30 border-b border-sand-light bg-white/92 backdrop-blur-lg">
@@ -115,12 +118,21 @@ export function Nav({ store }: { store: Settings["store"] }) {
           </NavigationMenuList>
         </NavigationMenu>
 
-        <DownloadButton
-          store={store}
-          label="Download the App"
-          size="default"
-          className="whitespace-nowrap lg:px-5"
-        />
+        {chefSide ? (
+          <Link
+            href={onApply ? "#apply" : "/become-a-chef#apply"}
+            className={cn(buttonVariants({ size: "default" }), "lg:px-5")}
+          >
+            Apply now
+          </Link>
+        ) : (
+          <DownloadButton
+            store={store}
+            label="Download the App"
+            size="default"
+            className="whitespace-nowrap lg:px-5"
+          />
+        )}
 
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger

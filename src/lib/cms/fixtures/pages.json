@@ -12,9 +12,9 @@
         "key": "hero",
         "type": "hero",
         "data": {
-          "eyebrow": "HOMEMADE MEALS · NOW LIVE IN CEBU",
+          "eyebrow": "",
           "title": "Food that tastes like home, cooked by your neighbors.",
-          "body": "Real meals from home chefs in Lahug, Mandaue, Talamban and Banilad. Every dish has a name and a face behind it.",
+          "body": "Real meals from home chefs in Lahug, Mandaue, Talamban and Banilad. Every chef is verified: an ID check, a call with our team and a kitchen visit before they go live.",
           "primary_cta": {
             "label": "Download the App",
             "href": "#download"
@@ -240,21 +240,21 @@
           "items": [
             {
               "title": "Download the app",
-              "body": "Free on iPhone and Android. Sign up with your mobile number.",
+              "body": "Free on iPhone and Android. Sign up with your email or Google account.",
               "chips": [],
-              "image_url": null
+              "image_url": "/images/app-screens/step-1.jpg"
             },
             {
               "title": "Browse chefs near you",
               "body": "Search by area or craving. Every chef has a photo, a story and real reviews.",
               "chips": [],
-              "image_url": null
+              "image_url": "/images/app-screens/step-2.jpg"
             },
             {
               "title": "Pick a meal",
               "body": "See what each chef is cooking today, how many plates are left, and when it's ready.",
               "chips": [],
-              "image_url": null
+              "image_url": "/images/app-screens/step-3.jpg"
             },
             {
               "title": "Order and pay",
@@ -264,7 +264,7 @@
                 "Maya",
                 "Card"
               ],
-              "image_url": null
+              "image_url": "/images/app-screens/step-4.jpg"
             },
             {
               "title": "Pickup or delivery",
@@ -273,7 +273,7 @@
                 "Lalamove delivery",
                 "Self pickup"
               ],
-              "image_url": null
+              "image_url": "/images/app-screens/step-5.jpg"
             }
           ]
         }
@@ -690,13 +690,10 @@
           "eyebrow": "ABOUT SUPACHEFS",
           "title": "The best food in Cebu was always in someone's home.",
           "body": "",
-          "primary_cta": {
-            "label": "Download the App",
-            "href": "#download"
-          },
+          "primary_cta": null,
           "secondary_cta": null,
           "image_url": null,
-          "image_caption": ""
+          "image_caption": "The team sharing lunch from three different chefs"
         }
       },
       {
@@ -755,48 +752,6 @@
               "icon": "star",
               "title": "Made in Cebu",
               "body": "Built here, for here, by people who live here."
-            }
-          ]
-        }
-      },
-      {
-        "key": "team",
-        "type": "chefs",
-        "data": {
-          "eyebrow": "THE TEAM",
-          "title": "The people behind SupaChefs",
-          "items": [
-            {
-              "name": "[Name]",
-              "area": "Co-founder · CEO",
-              "cuisine": "",
-              "dish": "",
-              "story": "",
-              "image_url": null
-            },
-            {
-              "name": "[Name]",
-              "area": "Co-founder · Operations",
-              "cuisine": "",
-              "dish": "",
-              "story": "",
-              "image_url": null
-            },
-            {
-              "name": "[Name]",
-              "area": "Chef Success",
-              "cuisine": "",
-              "dish": "",
-              "story": "",
-              "image_url": null
-            },
-            {
-              "name": "[Name]",
-              "area": "Community · Cebu",
-              "cuisine": "",
-              "dish": "",
-              "story": "",
-              "image_url": null
             }
           ]
         }

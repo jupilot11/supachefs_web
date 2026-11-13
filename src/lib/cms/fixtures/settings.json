@@ -1,7 +1,7 @@
 {
   "store": {
-    "app_store_url": null,
-    "play_store_url": null
+    "app_store_url": "https://apps.apple.com/ph/app/supachefs/id1",
+    "play_store_url": "https://play.google.com/store/apps/details?id=com.supachefs"
   },
   "social": {
     "facebook_url": null,

@@ -21,8 +21,8 @@ export function RichText({
           <h2 className="font-serif text-[28px] leading-[1.25] font-semibold tracking-[-0.01em] text-balance text-primary italic lg:text-5xl lg:leading-[1.15]">
             {data.title}
           </h2>
-          {data.paragraphs.map((p) => (
-            <p key={p} className="text-secondary lg:text-lg">
+          {data.paragraphs.map((p, idx) => (
+            <p key={`${idx}-${p}`} className="text-secondary lg:text-lg">
               {p}
             </p>
           ))}
@@ -34,8 +34,8 @@ export function RichText({
     <Section id={id} inner="flex flex-col gap-4 lg:gap-6">
       <SectionHeader eyebrow={data.eyebrow} title={data.title} />
       <Reveal className="flex max-w-2xl flex-col gap-4">
-        {data.paragraphs.map((p) => (
-          <p key={p} className="text-secondary lg:text-lg">
+        {data.paragraphs.map((p, idx) => (
+          <p key={`${idx}-${p}`} className="text-secondary lg:text-lg">
             {p}
           </p>
         ))}

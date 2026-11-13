@@ -9,6 +9,7 @@ import {
 import type { Settings } from "@/lib/cms/schemas";
 import { cn } from "cn";
 import type { VariantProps } from "class-variance-authority";
+import { hasStore } from "@/lib/cms/store";
 import { StoreBadges } from "./store-badges";
 import { usePlatform } from "./use-platform";
 
@@ -20,7 +21,7 @@ type Props = VariantProps<typeof buttonVariants> & {
 
 /**
  * Phone: a direct link to the matching store. Desktop: a popover with both
- * badges and a QR code. Before hydration it is a plain link to /download, so it
+ * badges. Before hydration it is a plain link to /download, so it
  * works without JavaScript too.
  */
 export function DownloadButton({
@@ -33,10 +34,25 @@ export function DownloadButton({
   const platform = usePlatform();
   const classes = cn(buttonVariants({ variant, size }), className);
 
+  // No store set at all: nothing to show. A phone whose own store has no link gets a plain note instead of a
+  // vanished button, so an iPhone visitor is told the truth rather than left with nothing to tap.
+  if (!hasStore(store)) return null;
   if (platform === "ios" || platform === "android") {
     const url = platform === "ios" ? store.app_store_url : store.play_store_url;
+    if (!url)
+      return (
+        <span
+          className={cn(
+            buttonVariants({ variant: "ghost", size }),
+            "pointer-events-none border-[1.5px] border-sand-light",
+            className,
+          )}
+        >
+          Coming soon to {platform === "ios" ? "iPhone" : "Android"}
+        </span>
+      );
     return (
-      <a href={url ?? "/download"} className={classes}>
+      <a href={url} className={classes}>
         {label}
       </a>
     );
@@ -56,10 +72,8 @@ export function DownloadButton({
         sideOffset={12}
         className="w-max gap-3.5 rounded-[14px] p-5"
       >
-        <p className="text-sm font-semibold">
-          Scan with your phone, or pick your store
-        </p>
-        <StoreBadges store={store} qr />
+        <p className="text-sm font-semibold">Pick your store</p>
+        <StoreBadges store={store} />
       </PopoverContent>
     </Popover>
   );

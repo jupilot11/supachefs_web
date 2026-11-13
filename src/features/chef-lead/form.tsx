@@ -2,13 +2,20 @@
 
 import { useActionState, useEffect, useRef, useState } from "react";
 import { ChevronDown, Loader2 } from "lucide-react";
+import Link from "next/link";
+import { z } from "zod";
 import { cn } from "cn";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { submitChefLead } from "./action";
-import { DAYS, type ChefLeadState } from "./schema";
+import {
+  chefLeadSchema,
+  DAYS,
+  parseChefLead,
+  type ChefLeadState,
+} from "./schema";
 import { Turnstile } from "./turnstile";
 
 const idle: ChefLeadState = { status: "idle" };
@@ -24,8 +31,11 @@ const snapshot = (fd: FormData): Draft => ({
   heard_from: String(fd.get("heard_from") ?? ""),
 });
 
+// The form's blur/change handlers fire for any child control (input, select, textarea).
+const field = (e: { target: unknown }) => e.target as HTMLInputElement;
+
 const fieldClass =
-  "h-12 rounded-[10px] border-sand bg-white px-3.5 text-base md:text-base";
+  "h-12 rounded-[10px] border-input bg-white px-3.5 text-base md:text-base";
 
 const selectClass = cn(
   fieldClass,
@@ -48,10 +58,12 @@ export function ChefLeadForm({
   areas,
   heardFrom,
   siteKey,
+  helpHref,
 }: {
   areas: string[];
   heardFrom: string[];
   siteKey: string;
+  helpHref?: string | null;
 }) {
   const [state, formAction, pending] = useActionState(submitChefLead, idle);
   // React resets the form after an action; the draft puts every answer back.
@@ -61,6 +73,13 @@ export function ChefLeadForm({
   const alert = useRef<HTMLDivElement>(null);
   const confirmation = useRef<HTMLDivElement>(null);
   const [seen, setSeen] = useState<ChefLeadState>(idle);
+  // Same schema as the server, run in the browser: per field on blur (never on an empty one,
+  // so tabbing through isn't scolded) and for the whole form on submit. "" means no error.
+  const [clientErrors, setClientErrors] = useState<Record<string, string>>({});
+  const setClientError = (name: string, message: string) =>
+    setClientErrors((c) =>
+      (c[name] ?? "") === message ? c : { ...c, [name]: message },
+    );
 
   // On each new response: reset the single-use Turnstile token (unless success) and move focus.
   if (state !== seen) {
@@ -97,7 +116,7 @@ export function ChefLeadForm({
   }
 
   const errs = state.status === "error" ? (state.fieldErrors ?? {}) : {};
-  const err = (name: string) => errs[name]?.[0];
+  const err = (name: string) => clientErrors[name] || errs[name]?.[0];
   const a11y = (name: string, hint?: string) => ({
     "aria-invalid": err(name) ? (true as const) : undefined,
     "aria-describedby":
@@ -109,7 +128,12 @@ export function ChefLeadForm({
 
   const fieldError = (name: string) =>
     err(name) ? (
-      <p id={`${name}-error`} className="text-[13px] font-medium text-error">
+      <p
+        id={`${name}-error`}
+        // The Turnstile widget has no input to focus, so announce its error instead.
+        role={name === "turnstile_token" ? "alert" : undefined}
+        className="text-[13px] font-medium text-error"
+      >
         {err(name)}
       </p>
     ) : null;
@@ -118,6 +142,33 @@ export function ChefLeadForm({
     <form
       ref={form}
       noValidate
+      onBlur={(e) => {
+        const { name, value } = field(e);
+        const rule =
+          chefLeadSchema.shape[name as keyof typeof chefLeadSchema.shape];
+        if (!rule || name === "days") return;
+        setClientError(
+          name,
+          value.trim()
+            ? (rule.safeParse(value).error?.issues[0]?.message ?? "")
+            : "",
+        );
+      }}
+      onChange={(e) => setClientError(field(e).name, "")}
+      onSubmit={(e) => {
+        const parsed = parseChefLead(new FormData(e.currentTarget));
+        if (parsed.success) return setClientErrors({});
+        // Invalid: no server round-trip (and no spent Turnstile token).
+        e.preventDefault();
+        const fields = z.flattenError(parsed.error).fieldErrors;
+        setClientErrors(
+          Object.fromEntries(
+            Object.entries(fields).map(([k, v]) => [k, v?.[0] ?? ""]),
+          ),
+        );
+        const first = Object.keys(fields)[0];
+        form.current?.querySelector<HTMLElement>(`[name="${first}"]`)?.focus();
+      }}
       action={(fd) => {
         setDraft(snapshot(fd));
         formAction(fd);
@@ -161,7 +212,7 @@ export function ChefLeadForm({
         <div className="flex">
           <span
             aria-hidden="true"
-            className="grid h-12 place-items-center rounded-l-[10px] border border-r-0 border-sand bg-subtle px-3.5 text-base font-semibold text-secondary"
+            className="grid h-12 place-items-center rounded-l-[10px] border border-r-0 border-input bg-subtle px-3.5 text-base font-semibold text-secondary"
           >
             +63
           </span>
@@ -231,7 +282,7 @@ export function ChefLeadForm({
           rows={3}
           placeholder="e.g. Humba, pochero, and my lola's leche flan"
           defaultValue={text("cooks")}
-          className="min-h-24 rounded-[10px] border-sand bg-white px-3.5 py-3 text-base md:text-base"
+          className="min-h-24 rounded-[10px] border-input bg-white px-3.5 py-3 text-base md:text-base"
           {...a11y("cooks")}
         />
         {fieldError("cooks")}
@@ -246,7 +297,8 @@ export function ChefLeadForm({
         <legend className="mb-1.5 text-sm font-semibold">
           When could you cook?
         </legend>
-        <div className="flex flex-wrap gap-2">
+        {/* 4 + 3: seven chips in a free-wrapping row left "Sun" alone on a phone */}
+        <div className="grid grid-cols-4 gap-2">
           {DAYS.map((d) => (
             <label
               key={`${d.value}-${checkedDays.includes(d.value)}`}
@@ -260,7 +312,7 @@ export function ChefLeadForm({
                 aria-invalid={err("days") ? true : undefined}
                 className="peer sr-only"
               />
-              <span className="inline-flex h-11 min-w-14 items-center justify-center rounded-full border-[1.5px] border-sand bg-white px-4 text-sm font-semibold text-primary transition-transform duration-150 select-none peer-checked:border-orange-dark peer-checked:bg-orange-dark peer-checked:text-white peer-focus-visible:outline-3 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-brand active:translate-y-px">
+              <span className="inline-flex h-11 w-full items-center justify-center rounded-full border-[1.5px] border-input bg-white px-2 text-sm font-semibold text-primary transition-transform duration-150 select-none peer-checked:border-orange-dark peer-checked:bg-orange-dark peer-checked:text-white peer-focus-visible:outline-3 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-brand active:translate-y-px">
                 {d.label}
               </span>
             </label>
@@ -297,7 +349,7 @@ export function ChefLeadForm({
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <Turnstile siteKey={siteKey} resetKey={resets} />
+        <Turnstile siteKey={siteKey} resetKey={resets} helpHref={helpHref} />
         {fieldError("turnstile_token")}
       </div>
 
@@ -316,6 +368,13 @@ export function ChefLeadForm({
       <p className="text-center text-[13px] text-secondary">
         We&apos;ll text you within 3 days. Applying doesn&apos;t commit you to
         anything.
+      </p>
+      <p className="text-center text-[13px] text-secondary">
+        Details you send are handled as described in our{" "}
+        <Link href="/privacy" className="underline">
+          Privacy Policy
+        </Link>
+        .
       </p>
     </form>
   );

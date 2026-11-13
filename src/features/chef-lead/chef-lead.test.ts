@@ -6,7 +6,13 @@ vi.mock("next/headers", () => ({
 }));
 
 import { submitChefLead } from "./action";
-import { chefLeadSchema, MESSAGES, type ChefLeadState } from "./schema";
+import { z } from "zod";
+import {
+  chefLeadSchema,
+  MESSAGES,
+  parseChefLead,
+  type ChefLeadState,
+} from "./schema";
 
 const valid = {
   full_name: "Nena Cabahug",
@@ -55,6 +61,20 @@ function form(
   fd.set("cf-turnstile-response", v.turnstile_token as string);
   return fd;
 }
+
+describe("parseChefLead (shared by the browser and the action)", () => {
+  it("reads a complete form", () => {
+    expect(parseChefLead(form()).success).toBe(true);
+  });
+  it("reports each bad field once, in form order", () => {
+    const r = parseChefLead(form({ full_name: " ", days: [] }));
+    if (r.success) throw new Error("expected a failure");
+    expect(Object.keys(z.flattenError(r.error).fieldErrors)).toEqual([
+      "full_name",
+      "days",
+    ]);
+  });
+});
 
 const idle: ChefLeadState = { status: "idle" };
 const respond = (status: number, body: unknown = {}) =>
