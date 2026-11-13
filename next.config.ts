@@ -45,6 +45,10 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "*.supachefs.com" },
     ],
   },
+  // Hostinger kills Turbopack's child-process pool during the Tailwind loader step ("node process exited
+  // before we could connect"). Worker threads run inside the Next process instead.
+  // shortcut: Next falls back to child processes on Node >= 24.13.1, so keep the host on Node 22.
+  experimental: { turbopackPluginRuntimeStrategy: "workerThreads" },
   turbopack: {
     rules: {
       "*.css": {
