@@ -58,3 +58,20 @@ CI (`.github/workflows/ci.yml`) runs all four.
   if the admin embeds previews. Set HSTS at the host or CDN.
 - The chef form forwards the leftmost `X-Forwarded-For` value to the API as `X-Client-IP`. Confirm how
   your host treats that header before relying on per-IP rate limits.
+
+### Hostinger (Node.js web app, supachefs.com)
+
+The site runs as a Node.js app, not static files: `/api/revalidate`, `/api/draft` and tag-based ISR need
+the server. Only `supachefs.com` moves; `waitlist.supachefs.com` stays on its PHP/HTML site.
+
+1. hPanel → Websites → Add website → Node.js Apps → import this GitHub repo (branch `main`).
+2. Framework Next.js, **Node.js 22**, build command `npm run build`, start command `npm start`
+   (Hostinger sets `PORT`; `next start` reads it).
+3. Environment variables: every row in the table above except the two `CMS_FIXTURES*` ones, which must
+   stay unset. `API_BASE_URL` must be the production Laravel API origin (build fails without it) and
+   `NEXT_PUBLIC_SITE_URL` must be `https://supachefs.com`. Public vars are inlined at build time, so
+   redeploy after changing them.
+4. Domains: attach `supachefs.com` to the Node.js app and enable SSL. Remove the old PHP site for
+   `supachefs.com` first (its `public_html` is what returns the 403). Do not touch the
+   `waitlist.supachefs.com` site.
+5. Point the CMS `SITE_*` secrets and its revalidate webhook at `https://supachefs.com/api/revalidate`.
