@@ -2,9 +2,14 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+/* The site has one light theme. Tailwind's default `dark:` follows the phone's OS setting, which turned the
+   shadcn inputs and tabs grey on dark-mode devices; tie it to a .dark class nothing sets. */
+@custom-variant dark (&:is(.dark *));
+
 /* SupaChefs tokens, mapped from website-plan/design-reference/tokens.css.
    Closed warm palette: no cool greys, no pure black. */
 :root {
+  color-scheme: light;
   --orange-wash: #fff4f0;
   --orange-tint: #fde9e2;
   --orange-mid: #f9c4ae;
@@ -20,7 +25,6 @@
   --bg-subtle: #f5f0ed;
   --sand-light: #eae2dc;
   --sand: #d4c8c0;
-  --warm-gray-light: #a89e98;
   --warm-gray: #6b5b52;
   --brown-mid: #4a3830;
   --charcoal: #2a1f1a;
@@ -53,7 +57,7 @@
   --accent-foreground: var(--charcoal);
   --destructive: var(--error);
   --border: var(--sand-light);
-  --input: var(--sand);
+  --input: #8a7d74; /* control borders: 3.99:1 on white (WCAG 1.4.11); sand is 1.64:1 */
   --ring: var(--orange);
   --radius: 0.75rem;
 }
@@ -144,11 +148,17 @@
     outline: 3px solid var(--orange);
     outline-offset: 2px;
   }
+  /* Orange on the orange band is 1.4:1; white is 5.5:1. Descendants only, so the default
+     (orange-filled) Button on a white page keeps its orange ring. */
+  .bg-orange-dark :where(a, button, input):focus-visible,
+  .bg-charcoal :where(a, button, input):focus-visible {
+    outline-color: #fff;
+  }
 }
 
 @layer utilities {
   .caps-label {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.12em;
     line-height: 1.4;
@@ -159,8 +169,21 @@
   }
 }
 
+/* Route enter (app/template.tsx): transform only, so the page is never hidden waiting for JS. */
+@keyframes route-enter {
+  from {
+    transform: translateY(8px);
+  }
+}
+.route-enter {
+  animation: route-enter 0.2s var(--ease-out);
+}
+
 /* Motion fallbacks: reduced motion and no-JS show everything at once. */
 @media (prefers-reduced-motion: reduce) {
+  .route-enter {
+    animation: none;
+  }
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;

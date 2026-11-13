@@ -31,9 +31,9 @@ export function Comparison({
           <span className="caps-label text-secondary">{data.them_label}</span>
         </div>
         <ul>
-          {data.rows.map((r) => (
+          {data.rows.map((r, idx) => (
             <li
-              key={r.label}
+              key={`${idx}-${r.label}`}
               className="grid gap-2 border-b border-sand-light px-5 py-4 last:border-b-0 lg:grid-cols-[220px_1fr_1fr] lg:gap-6 lg:px-7 lg:py-5"
             >
               <span className="caps-label text-secondary lg:text-sm lg:font-semibold lg:tracking-normal lg:text-primary lg:normal-case">

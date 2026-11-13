@@ -74,7 +74,7 @@ type LinkProps = VariantProps<typeof buttonVariants> & {
   className?: string;
 };
 
-/** href: a site path, "#download" (store badges or QR), a page anchor, or an absolute URL. */
+/** href: a site path, "#download" (store badges), a page anchor, or an absolute URL. */
 export function CmsLink({ cta, store, variant, size, className }: LinkProps) {
   if (!cta || !cta.label || !cta.href) return null;
   if (cta.href === "#download") {
@@ -116,12 +116,15 @@ export function Photo({
   className,
   sizes,
   priority,
+  unoptimized,
 }: {
   src?: string | null;
   alt?: string;
   className?: string;
   sizes: string;
   priority?: boolean;
+  /** For photos from hosts next/image is not set up for (a chef's own upload on any storage). */
+  unoptimized?: boolean;
 }) {
   return (
     <div className={cn("relative overflow-hidden bg-orange-tint", className)}>
@@ -132,6 +135,7 @@ export function Photo({
           fill
           sizes={sizes}
           priority={priority}
+          unoptimized={unoptimized}
           className="object-cover"
         />
       ) : (

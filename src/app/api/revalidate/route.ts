@@ -7,7 +7,7 @@ const body = z.object({
   tags: z
     .array(
       z.union([
-        z.enum(["faqs", "settings", "legal"]),
+        z.enum(["faqs", "settings", "legal", "top-chefs", "testimonials"]),
         z.string().regex(/^page:[a-z0-9-]+$/),
       ]),
     )

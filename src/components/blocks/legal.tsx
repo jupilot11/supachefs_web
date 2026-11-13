@@ -21,8 +21,8 @@ export async function LegalDocument({ page }: { page: LegalPage }) {
         <p className="mt-2 text-sm text-secondary">Last updated {updated}</p>
       )}
       <div className="mt-8 flex flex-col gap-4 text-secondary lg:text-lg">
-        {paragraphs(doc.content).map((p) => (
-          <p key={p} className="whitespace-pre-line">
+        {paragraphs(doc.content).map((p, idx) => (
+          <p key={`${idx}-${p}`} className="whitespace-pre-line">
             {p}
           </p>
         ))}

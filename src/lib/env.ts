@@ -16,7 +16,12 @@ function buildSchema(fixtures: boolean) {
 
 export type Env = z.infer<ReturnType<typeof buildSchema>>;
 
-export const fixturesEnabled = () => process.env.CMS_FIXTURES === "1";
+// Dev and tests only. A production build must also set CMS_FIXTURES_IN_PROD=1 (e2e does), so a stray
+// CMS_FIXTURES=1 in a real deployment cannot silently serve fixture copy. Same rule in next.config.ts.
+export const fixturesEnabled = () =>
+  process.env.CMS_FIXTURES === "1" &&
+  (process.env.NODE_ENV !== "production" ||
+    process.env.CMS_FIXTURES_IN_PROD === "1");
 
 /** Validated env. Throws one clear message listing every missing or bad variable. */
 export function env(): Env {

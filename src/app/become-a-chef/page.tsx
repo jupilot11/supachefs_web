@@ -58,6 +58,7 @@ export default async function Page() {
           areas={settings.chef_form.areas}
           heardFrom={settings.chef_form.heard_from}
           siteKey={env().NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+          helpHref={settings.contact.messenger_url}
         />
       </Section>
       <Sections

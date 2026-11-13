@@ -52,6 +52,19 @@ export const chefLeadSchema = z.object({
   turnstile_token: z.string().min(1, "Complete the security check."),
 });
 
+/** One parse for the browser (before submit) and the server action, so the two cannot drift. */
+export const parseChefLead = (fd: FormData) =>
+  chefLeadSchema.safeParse({
+    full_name: fd.get("full_name") ?? "",
+    mobile: fd.get("mobile") ?? "",
+    email: fd.get("email") ?? "",
+    area: fd.get("area") ?? "",
+    cooks: fd.get("cooks") ?? "",
+    days: fd.getAll("days"),
+    heard_from: fd.get("heard_from") ?? "",
+    turnstile_token: fd.get("cf-turnstile-response") ?? "",
+  });
+
 export type ChefLead = z.output<typeof chefLeadSchema>;
 
 export type FieldErrors = Partial<Record<string, string[]>>;

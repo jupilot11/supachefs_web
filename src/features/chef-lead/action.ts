@@ -5,8 +5,8 @@ import { z } from "zod";
 import { getSettings } from "@/lib/cms";
 import { env } from "@/lib/env";
 import {
-  chefLeadSchema,
   MESSAGES,
+  parseChefLead,
   type ChefLeadState,
   type FieldErrors,
 } from "./schema";
@@ -26,16 +26,7 @@ export async function submitChefLead(
   _prev: ChefLeadState,
   formData: FormData,
 ): Promise<ChefLeadState> {
-  const parsed = chefLeadSchema.safeParse({
-    full_name: formData.get("full_name") ?? "",
-    mobile: formData.get("mobile") ?? "",
-    email: formData.get("email") ?? "",
-    area: formData.get("area") ?? "",
-    cooks: formData.get("cooks") ?? "",
-    days: formData.getAll("days"),
-    heard_from: formData.get("heard_from") ?? "",
-    turnstile_token: formData.get("cf-turnstile-response") ?? "",
-  });
+  const parsed = parseChefLead(formData);
   const fieldErrors: FieldErrors = parsed.success
     ? {}
     : z.flattenError(parsed.error).fieldErrors;
@@ -61,6 +52,7 @@ export async function submitChefLead(
     res = await fetch(new URL("/api/v1/site/chef-leads", e.API_BASE_URL), {
       method: "POST",
       cache: "no-store",
+      signal: AbortSignal.timeout(10_000), // a stalled API becomes the "couldn't send" message below
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",

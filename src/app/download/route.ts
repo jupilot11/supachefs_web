@@ -1,9 +1,10 @@
 import { getSettings } from "@/lib/cms";
 
-// Request-time redirect: the QR code and no-JS download links point here, so it is never cached.
+// Request-time redirect: the no-JS download links point here, so it is never cached.
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
+  // Phones only: iPadOS sends a Mac user agent, so use-platform.ts also checks touch points client-side.
   const ua = request.headers.get("user-agent") ?? "";
   const { store } = await getSettings();
   const target = /iPhone|iPad|iPod/.test(ua)
