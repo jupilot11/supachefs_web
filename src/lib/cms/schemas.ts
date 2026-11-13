@@ -32,7 +32,8 @@ export type Settings = z.infer<typeof settingsSchema>;
 const str = z.string();
 const image = z.string().nullish();
 const cta = z.object({ label: str, href });
-const nullableCta = cta.nullish();
+// The API once stored a button-less hero's CTA as "" instead of null; read it as no button.
+const nullableCta = z.preprocess((v) => (v === "" ? null : v), cta.nullish());
 
 export const heroSchema = z.object({
   eyebrow: str,

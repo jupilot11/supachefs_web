@@ -71,6 +71,19 @@ describe("live client", () => {
     await expect(getPage("home")).rejects.toMatchObject({ kind: "parse" });
   });
 
+  it('reads a hero CTA sent as "" as no button, but still rejects a bad one', async () => {
+    const [first] = pageFixtures.about.sections;
+    const hero = (primary_cta: unknown) => [
+      { ...first, data: { ...(first.data as object), primary_cta } },
+    ];
+    live(async () => json({ ...pageFixtures.about, sections: hero("") }));
+    const page = await getPage("about");
+    expect(page.sections[0].data).toMatchObject({ primary_cta: null });
+
+    live(async () => json({ ...pageFixtures.about, sections: hero("Go") }));
+    await expect(getPage("about")).rejects.toMatchObject({ kind: "parse" });
+  });
+
   it("throws CmsError(http) with the status, and flags 404", async () => {
     live(async () => json({}, 404));
     const err = await getPage("about").catch((e) => e);
