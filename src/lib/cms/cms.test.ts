@@ -19,6 +19,17 @@ describe("fixtures parse with their Zod schemas", () => {
   it("settings", () => {
     expect(settingsSchema.safeParse(settingsFixture).success).toBe(true);
   });
+  it("settings logo_url: absent or empty is no logo, https is kept, other schemes are rejected", () => {
+    const parse = (logo_url?: string | null) =>
+      settingsSchema.safeParse({ ...settingsFixture, logo_url });
+    expect(parse(undefined).data?.logo_url).toBeUndefined();
+    expect(parse("").data?.logo_url).toBeNull();
+    expect(parse(null).data?.logo_url).toBeNull();
+    expect(parse("https://cdn.supachefs.com/logo.png").data?.logo_url).toBe(
+      "https://cdn.supachefs.com/logo.png",
+    );
+    expect(parse("javascript:alert(1)").success).toBe(false);
+  });
   it.each(PAGE_SLUGS)("page %s", (slug) => {
     const r = pageSchema.safeParse(pageFixtures[slug]);
     expect(r.error?.message).toBeUndefined();

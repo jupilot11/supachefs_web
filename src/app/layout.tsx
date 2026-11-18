@@ -72,7 +72,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
             Skip to content
           </a>
           <PreviewBar />
-          <Nav store={settings.store} />
+          <Nav store={settings.store} logoUrl={settings.logo_url} />
           <main id="main">{children}</main>
           <Footer settings={settings} />
         </MotionRoot>

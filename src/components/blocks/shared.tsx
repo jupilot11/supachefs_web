@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Utensils } from "lucide-react";
 import { cn } from "cn";
 import { buttonVariants } from "@/components/ui/button";
+import { PhotoZoom } from "@/components/ui/photo-zoom";
 import Link from "next/link";
 import { DownloadButton } from "@/components/layout/download-button";
 import type { Settings } from "@/lib/cms/schemas";
@@ -117,6 +118,7 @@ export function Photo({
   sizes,
   priority,
   unoptimized,
+  zoom = true,
 }: {
   src?: string | null;
   alt?: string;
@@ -125,19 +127,24 @@ export function Photo({
   priority?: boolean;
   /** For photos from hosts next/image is not set up for (a chef's own upload on any storage). */
   unoptimized?: boolean;
+  /** A real photo opens full screen when clicked. Turn off where the photo sits inside a link or button. */
+  zoom?: boolean;
 }) {
   return (
     <div className={cn("relative overflow-hidden bg-orange-tint", className)}>
       {src ? (
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          sizes={sizes}
-          priority={priority}
-          unoptimized={unoptimized}
-          className="object-cover"
-        />
+        <>
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            sizes={sizes}
+            priority={priority}
+            unoptimized={unoptimized}
+            className="object-cover"
+          />
+          {zoom && <PhotoZoom src={src} alt={alt} unoptimized={unoptimized} />}
+        </>
       ) : (
         <div
           aria-hidden="true"

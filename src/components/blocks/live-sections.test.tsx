@@ -50,6 +50,8 @@ const review = (n: number, over = {}) => ({
 const html = async (node: Promise<ReactElement | null>) =>
   renderToStaticMarkup(await node);
 const count = (s: string, needle: string) => s.split(needle).length - 1;
+// Real list items only: a bare "<li" would also match the <line> inside an icon
+const items = (s: string) => (s.match(/<li[\s>]/g) ?? []).length;
 
 describe("the home chefs section", () => {
   it("shows each real chef with area, cuisine, rating and story", async () => {
@@ -59,7 +61,7 @@ describe("the home chefs section", () => {
       chef(3),
     ]);
     const out = await html(LiveChefs({ id: "chefs" }));
-    expect(count(out, "<li")).toBe(3);
+    expect(items(out)).toBe(3);
     expect(out).toContain("Chef Number1");
     expect(out).toContain("Lahug");
     expect(out).toContain("4.8");
@@ -95,7 +97,7 @@ describe("the home chefs section", () => {
     vi.mocked(cms.getTopChefs).mockResolvedValue(
       [1, 2, 3, 4, 5].map((n) => chef(n)),
     );
-    expect(count(await html(LiveChefs({ id: "chefs" })), "<li")).toBe(5);
+    expect(items(await html(LiveChefs({ id: "chefs" })))).toBe(5);
   });
 
   it("renders nothing at all when there are no chefs", async () => {
@@ -124,7 +126,7 @@ describe("the home chefs section", () => {
       chef(3),
       chef(4, { image_url: null }),
     ]);
-    expect(count(await html(LiveChefs({ id: "chefs" })), "<li")).toBe(4);
+    expect(items(await html(LiveChefs({ id: "chefs" })))).toBe(4);
   });
 });
 
@@ -140,7 +142,7 @@ describe("the home testimonials section", () => {
     expect(out).toContain("Review text 1 that is long enough");
     expect(out).toContain("Maria S.");
     expect(out).toContain("Beef pochero from Chef Tess · Banilad");
-    expect(count(out, "<li")).toBe(0);
+    expect(items(out)).toBe(0);
   });
 
   it("shows several reviews as cards with their stars", async () => {
@@ -150,7 +152,7 @@ describe("the home testimonials section", () => {
       review(3),
     ]);
     const out = await html(LiveTestimonials({ id: "testimonial" }));
-    expect(count(out, "<li")).toBe(3);
+    expect(items(out)).toBe(3);
     expect(out).toContain("4 out of 5 stars");
     expect(out).toContain("Ordered from Chef Tess · Banilad");
   });

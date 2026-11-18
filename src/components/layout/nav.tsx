@@ -46,7 +46,13 @@ const topLinks = [
 const itemClass =
   "relative inline-flex h-11 items-center rounded-none border-b-2 border-transparent bg-transparent px-0 text-[15px] font-medium text-primary hover:bg-transparent focus:bg-transparent aria-[current=page]:border-brand data-popup-open:bg-transparent";
 
-export function Nav({ store }: { store: Settings["store"] }) {
+export function Nav({
+  store,
+  logoUrl,
+}: {
+  store: Settings["store"];
+  logoUrl?: string | null;
+}) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const current = (href: string) =>
@@ -60,7 +66,7 @@ export function Nav({ store }: { store: Settings["store"] }) {
   return (
     <header className="sticky top-0 z-30 border-b border-sand-light bg-white/92 backdrop-blur-lg">
       <div className="mx-auto flex h-[62px] max-w-[1440px] items-center gap-2.5 pr-3.5 pl-5 lg:h-[84px] lg:gap-11 lg:px-12">
-        <Wordmark className="flex-1 lg:flex-none" />
+        <Wordmark className="flex-1 lg:flex-none" logoUrl={logoUrl} />
 
         <NavigationMenu
           aria-label="Main"

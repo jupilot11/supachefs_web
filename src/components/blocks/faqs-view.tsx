@@ -1,14 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { useState, useSyncExternalStore } from "react";
 import { ArrowRight, Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { buttonVariants } from "@/components/ui/button";
-import { DownloadButton } from "@/components/layout/download-button";
 import { cn } from "cn";
-import type { Audience, Faqs, Settings } from "@/lib/cms/schemas";
+import type { Audience, Faqs } from "@/lib/cms/schemas";
 import { FaqAccordion } from "./faq-accordion";
 import { filterGroups, START_HERE, startPicks } from "./faq-search";
 
@@ -39,20 +37,10 @@ const intro: Record<Audience, string> = {
     "Straight answers about ordering, paying and how we check every chef.",
   chefs: "Straight answers about starting, earning and running your kitchen.",
 };
-const closing: Record<Audience, string> = {
-  customers: "Ready to eat?",
-  chefs: "Ready to cook?",
-};
 const count = (groups: { items: unknown[] }[]) =>
   groups.reduce((n, g) => n + g.items.length, 0);
 
-export function FaqsView({
-  data,
-  settings,
-}: {
-  data: Record<Audience, Faqs>;
-  settings: Settings;
-}) {
+export function FaqsView({ data }: { data: Record<Audience, Faqs> }) {
   const tab = useSyncExternalStore<Audience>(
     subscribe,
     readHash,
@@ -66,8 +54,6 @@ export function FaqsView({
   const [pick, setPick] = useState<{ tab: Audience; id: string | null } | null>(
     null,
   );
-  const { contact, store } = settings;
-
   const query = search.tab === tab ? search.q : "";
   const visible = filterGroups(data[tab].groups, query);
   const total = count(visible);
@@ -307,73 +293,6 @@ export function FaqsView({
           </TabsContent>
         );
       })}
-
-      <section className="bg-charcoal py-12 text-off-white lg:py-20">
-        <div className="container-page flex flex-wrap items-end justify-between gap-x-16 gap-y-10">
-          <div className="flex min-w-0 flex-[999_1_24rem] flex-col gap-5">
-            <h2 className="max-w-[16ch] text-[clamp(34px,4.2vw,56px)] leading-[1.02] font-extrabold tracking-[-0.035em] text-balance">
-              Still have a question? Ask a real person.
-            </h2>
-            <p className="max-w-[44ch] text-lg text-orange-tint">
-              Our team is in Cebu and replies within the day.
-            </p>
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-              {contact.email && (
-                <a
-                  href={`mailto:${contact.email}`}
-                  className={buttonVariants({ variant: "inverse", size: "lg" })}
-                >
-                  Email {contact.email}
-                </a>
-              )}
-              {contact.messenger_url && (
-                <a
-                  href={contact.messenger_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex min-h-11 items-center font-bold text-orange-tint underline underline-offset-4 hover:text-white"
-                >
-                  Message us on Facebook
-                </a>
-              )}
-            </div>
-          </div>
-          <div className="flex min-w-0 flex-[1_1_18rem] flex-col items-start gap-2">
-            <b className="text-xl font-extrabold">{closing[tab]}</b>
-            {tab === "customers" ? (
-              <>
-                <DownloadButton
-                  store={store}
-                  label="Download the App"
-                  size="lg"
-                  variant="inverse"
-                />
-                <Link
-                  href="/become-a-chef"
-                  className="inline-flex min-h-11 items-center font-bold text-orange-tint underline underline-offset-4 hover:text-white"
-                >
-                  Love to cook? Become a Chef
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link
-                  href="/become-a-chef"
-                  className={buttonVariants({ variant: "inverse", size: "lg" })}
-                >
-                  Become a Chef
-                </Link>
-                <DownloadButton
-                  store={store}
-                  label="Just hungry? Download the App"
-                  variant="link"
-                  className="text-orange-tint underline underline-offset-4 hover:text-white"
-                />
-              </>
-            )}
-          </div>
-        </div>
-      </section>
     </Tabs>
   );
 }

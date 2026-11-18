@@ -24,6 +24,8 @@ export const settingsSchema = z.object({
     heard_from: z.array(z.string()),
   }),
   platform_fee_percent: z.number(),
+  // Admin-uploaded logo. Absent or empty means the bundled default.
+  logo_url: url.optional(),
 });
 export type Settings = z.infer<typeof settingsSchema>;
 

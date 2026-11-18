@@ -30,7 +30,7 @@ describe("about hero (banner)", () => {
     expect(out).toContain(
       "PHOTO · The team sharing lunch from three different chefs",
     );
-    expect(out).toContain("<svg");
+    expect(out).toContain('preserveAspectRatio="none"');
     expect(out).not.toContain("<img");
     expect(out).not.toContain("lg:grid-cols-");
   });
@@ -42,7 +42,7 @@ describe("about hero (banner)", () => {
     expect(out).toContain("team.jpg");
     expect(out).toContain("The team sharing lunch from three different chefs");
     expect(out).not.toContain("PHOTO ·");
-    expect(out).not.toContain("<svg");
+    expect(out).not.toContain('preserveAspectRatio="none"');
   });
 
   it("omits the chip when there is no caption", () => {
@@ -54,6 +54,6 @@ describe("other heroes", () => {
   it("keep the two-column layout and draw no placeholder tile without a photo", () => {
     const out = html(hero(), "home");
     expect(out).not.toContain("PHOTO ·");
-    expect(out).not.toContain("<svg");
+    expect(out).not.toContain('preserveAspectRatio="none"');
   });
 });

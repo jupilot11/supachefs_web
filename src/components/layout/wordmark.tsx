@@ -1,13 +1,29 @@
+import Image from "next/image";
 import Link from "next/link";
 
-export function Wordmark({ className }: { className?: string }) {
+export function Wordmark({
+  className,
+  logoUrl,
+}: {
+  className?: string;
+  logoUrl?: string | null;
+}) {
   return (
     <Link
       href="/"
       aria-label="SupaChefs, home"
-      className={`inline-flex min-h-11 items-center text-[20px] font-extrabold tracking-[-0.03em] text-primary no-underline lg:text-[22px] ${className ?? ""}`}
+      className={`inline-flex min-h-11 items-center no-underline ${className ?? ""}`}
     >
-      Supa<span className="text-brand">Chefs</span>
+      <Image
+        src={logoUrl || "/images/supachefs-wordmark.png"}
+        // shortcut: unoptimized so an admin-uploaded host outside remotePatterns cannot crash the page, optimize if logos get large.
+        unoptimized={!!logoUrl}
+        alt=""
+        width={800}
+        height={182}
+        priority
+        className="h-[22px] w-auto lg:h-[26px]"
+      />
     </Link>
   );
 }
