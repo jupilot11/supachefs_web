@@ -663,6 +663,32 @@
         }
       },
       {
+        "key": "apply",
+        "type": "rich_text",
+        "data": {
+          "eyebrow": "Application",
+          "title": "Tell us about you and your cooking",
+          "paragraphs": [
+            "No essays, no menus yet. Just enough for us to call you. A real person from our Cebu team reads every application."
+          ],
+          "image_url": "/images/trust-and-safety.jpg",
+          "points": [
+            {
+              "title": "A 10-minute form",
+              "body": "Rough answers are fine. You can change them anytime."
+            },
+            {
+              "title": "We text you within 3 days",
+              "body": "Then a short, friendly call. No test."
+            },
+            {
+              "title": "No commitment",
+              "body": "Applying doesn’t commit you to anything."
+            }
+          ]
+        }
+      },
+      {
         "key": "faq",
         "type": "faq_preview",
         "data": {

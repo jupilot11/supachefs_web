@@ -98,34 +98,30 @@ export function FaqsView({ data }: { data: Record<Audience, Faqs> }) {
       onValueChange={(v) => switchTo(v as Audience)}
       className="gap-0"
     >
-      <section
-        className={cn(
-          "py-10 transition-colors duration-300 lg:py-16",
-          tab === "chefs"
-            ? "bg-charcoal text-off-white"
-            : "bg-orange-dark text-white",
-        )}
-      >
-        <div className="container-page flex flex-wrap items-end gap-x-16 gap-y-10">
-          <div className="flex min-w-0 flex-[999_1_26rem] flex-col gap-6">
-            <h1 className="text-[clamp(44px,8.4vw,112px)] leading-[0.94] font-extrabold tracking-[-0.045em] text-balance">
+      <section className="py-12 lg:py-[72px]">
+        <div className="container-page flex flex-wrap items-center gap-x-16 gap-y-10">
+          <div className="flex min-w-0 flex-[1_1_28rem] flex-col gap-4 lg:gap-5">
+            <span className="caps-label block text-orange-dark">Help · FAQs</span>
+            <h1 className="max-w-4xl text-[36px] leading-[1.08] font-extrabold tracking-[-0.025em] text-balance text-primary lg:text-[56px] lg:leading-[1.04] lg:tracking-[-0.03em]">
               Questions, answered.
             </h1>
-            <p className="max-w-[44ch] text-lg text-pretty">{intro[tab]}</p>
+            <p className="max-w-[520px] text-secondary lg:text-[19px]">
+              {intro[tab]}
+            </p>
 
-            <TabsList className="h-auto w-fit flex-wrap gap-2 bg-transparent p-0">
+            <TabsList className="mt-1.5 h-auto! w-fit flex-wrap gap-2.5 bg-transparent p-0 lg:gap-3.5">
               {(["customers", "chefs"] as const).map((a) => (
                 <TabsTrigger
                   key={a}
                   value={a}
-                  className="h-12 flex-none rounded-full border-2 border-current/75 px-6 text-base font-bold text-white hover:text-white focus-visible:ring-0 data-active:border-off-white data-active:bg-off-white data-active:text-charcoal data-active:shadow-none"
+                  className="h-[50px] flex-none rounded-[10px] border-[1.5px] border-brand px-6 text-[15px] font-bold tracking-[-0.01em] text-orange-dark hover:bg-orange-wash hover:text-orange-dark data-active:border-orange-dark data-active:bg-orange-dark data-active:text-white data-active:shadow-none data-active:hover:bg-orange-dark data-active:hover:text-white md:h-[54px] md:text-base"
                 >
                   {label[a]}
                 </TabsTrigger>
               ))}
             </TabsList>
 
-            <div>
+            <div className="max-w-[520px]">
               <label htmlFor="faq-search" className="sr-only">
                 Search the questions
               </label>
@@ -141,20 +137,23 @@ export function FaqsView({ data }: { data: Record<Audience, Faqs> }) {
                   value={query}
                   onChange={(e) => type(e.target.value)}
                   placeholder="Search “pay”, “delivery”…"
-                  className="h-[60px] rounded-[14px] border-2 border-transparent bg-white pr-14 pl-14 text-[17px] font-semibold text-primary placeholder:font-medium placeholder:text-secondary focus-visible:border-transparent focus-visible:ring-0 md:text-[17px] [&::-webkit-search-cancel-button]:hidden"
+                  className="h-14 rounded-xl border-[1.5px] bg-white pr-14 pl-[52px] text-[17px] font-medium text-primary placeholder:text-secondary md:text-[17px] [&::-webkit-search-cancel-button]:hidden"
                 />
                 {query && (
                   <button
                     type="button"
                     aria-label="Clear search"
                     onClick={() => type("")}
-                    className="absolute top-1/2 right-1.5 grid size-12 -translate-y-1/2 place-items-center rounded-xl text-primary hover:bg-orange-tint"
+                    className="absolute top-1/2 right-1.5 grid size-11 -translate-y-1/2 place-items-center rounded-xl text-primary hover:bg-orange-tint"
                   >
                     <X aria-hidden="true" className="size-5" />
                   </button>
                 )}
               </div>
-              <p aria-live="polite" className="mt-3 text-sm font-semibold">
+              <p
+                aria-live="polite"
+                className="mt-2.5 text-sm font-semibold text-secondary"
+              >
                 {query
                   ? `${total} ${total === 1 ? "result" : "results"} for “${query.trim()}”`
                   : `${total} questions`}
@@ -163,21 +162,23 @@ export function FaqsView({ data }: { data: Record<Audience, Faqs> }) {
           </div>
 
           {picks.length > 0 && (
-            <div className="flex min-w-0 flex-[1_1_20rem] flex-col gap-2.5">
-              <h2 className="mb-1 text-xl font-extrabold">Start here</h2>
+            <div className="flex min-w-0 flex-[1_1_22rem] flex-col gap-3 rounded-2xl bg-orange-wash p-6 lg:rounded-[18px] lg:p-7">
+              <h2 className="mb-1 text-[22px] font-extrabold tracking-[-0.015em] text-primary">
+                Start here
+              </h2>
               {picks.map((p) => (
                 <button
                   key={p.id}
                   type="button"
                   onClick={() => startHere(String(p.id))}
-                  className="flex min-h-14 items-center justify-between gap-4 rounded-2xl bg-white/15 px-5 py-4 text-left text-[19px] leading-snug font-bold transition-colors hover:bg-white/25"
+                  className="flex min-h-[60px] items-center justify-between gap-4 rounded-[14px] bg-white py-3.5 pr-4 pl-5 text-left text-[17px] leading-snug font-bold text-primary transition-colors hover:bg-orange-tint"
                 >
                   {p.question}
                   <span
                     aria-hidden="true"
-                    className="grid size-10 flex-none place-items-center rounded-full bg-off-white text-charcoal"
+                    className="grid size-9 flex-none place-items-center rounded-full bg-orange-tint text-orange-dark"
                   >
-                    <ArrowRight className="size-5" />
+                    <ArrowRight className="size-[18px]" />
                   </span>
                 </button>
               ))}
@@ -190,7 +191,7 @@ export function FaqsView({ data }: { data: Record<Audience, Faqs> }) {
         // A panel that is animating out keeps its own audience's questions, not the new tab's
         const groups = a === tab ? visible : data[a].groups;
         return (
-          <TabsContent key={a} value={a} className="py-10 lg:py-16">
+          <TabsContent key={a} value={a} className="bg-subtle py-10 lg:py-[88px]">
             <div className="container-page grid gap-8 lg:grid-cols-[240px_1fr] lg:gap-16">
               {groups.length > 0 && (
                 <>
@@ -200,7 +201,7 @@ export function FaqsView({ data }: { data: Record<Audience, Faqs> }) {
                         <a
                           key={g.topic}
                           href={`#${anchor(a, g.topic)}`}
-                          className="flex min-h-12 items-center gap-3 text-xl font-bold text-primary hover:text-orange-dark"
+                          className="flex min-h-12 items-center gap-3 text-lg font-bold text-primary hover:text-orange-dark"
                         >
                           <span
                             aria-hidden="true"
@@ -241,7 +242,7 @@ export function FaqsView({ data }: { data: Record<Audience, Faqs> }) {
                     id={anchor(a, g.topic)}
                     className="scroll-mt-28"
                   >
-                    <h2 className="mb-5 text-[32px] leading-[1.05] font-extrabold tracking-[-0.03em] text-primary lg:text-[40px]">
+                    <h2 className="mb-5 text-[28px] leading-[1.15] font-extrabold tracking-[-0.025em] text-primary lg:text-4xl">
                       {g.topic}
                     </h2>
                     <FaqAccordion
@@ -256,7 +257,7 @@ export function FaqsView({ data }: { data: Record<Audience, Faqs> }) {
                   </div>
                 ))}
                 {groups.length === 0 && (
-                  <div className="flex flex-col items-start gap-4 rounded-2xl bg-subtle p-6 lg:p-10">
+                  <div className="flex flex-col items-start gap-4 rounded-2xl border border-border bg-white p-6 lg:rounded-[18px] lg:p-10">
                     <h2 className="text-[28px] leading-[1.1] font-extrabold tracking-[-0.02em] text-primary lg:text-4xl">
                       Nothing matches “{query.trim()}”.
                     </h2>

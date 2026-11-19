@@ -331,6 +331,17 @@ test("/faqs: Start here opens that answer and keeps the Chefs tab", async ({
   ).toBeVisible();
 });
 
+test("become-a-chef: apply photo comes from the CMS section and sits beside the form", async ({
+  page,
+}, info) => {
+  test.skip(info.project.name !== "desktop-1280"); // the photo is hidden on phones
+  await page.goto("/become-a-chef");
+  await hydrated(page);
+  const photo = page.locator("#apply img");
+  await expect(photo).toBeVisible();
+  await expect(photo).toHaveAttribute("src", /trust-and-safety/);
+});
+
 test.describe("Become a Chef form", () => {
   const fill = async (page: import("@playwright/test").Page, name: string) => {
     await page.getByLabel("Full name").fill(name);

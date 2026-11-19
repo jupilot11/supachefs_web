@@ -106,6 +106,10 @@ export const richTextSchema = z.object({
   eyebrow: str,
   title: str,
   paragraphs: z.array(str),
+  // Added after launch (the become-a-chef "apply" section shows it); older saved pages have no key.
+  image_url: image,
+  // The ticked list under the apply photo. Absent on older pages (the site then shows its own three), [] hides the list.
+  points: z.array(z.object({ title: str, body: str })).optional(),
 });
 
 export const earningsSchema = z.object({

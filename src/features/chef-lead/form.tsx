@@ -366,10 +366,6 @@ export function ChefLeadForm({
         {pending ? "Sending…" : "Send my application"}
       </Button>
       <p className="text-center text-[13px] text-secondary">
-        We&apos;ll text you within 3 days. Applying doesn&apos;t commit you to
-        anything.
-      </p>
-      <p className="text-center text-[13px] text-secondary">
         Details you send are handled as described in our{" "}
         <Link href="/privacy" className="underline">
           Privacy Policy

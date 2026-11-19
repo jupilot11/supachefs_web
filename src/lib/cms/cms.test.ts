@@ -37,6 +37,45 @@ describe("fixtures parse with their Zod schemas", () => {
     // every fixture section is a known block (none fell through as unknown)
     expect(r.data?.sections.length).toBeGreaterThan(0);
   });
+  it("rich_text image_url: a photo, null and absent all parse", () => {
+    const parse = (extra: object) =>
+      pageSchema.safeParse({
+        ...pageFixtures["become-a-chef"],
+        sections: [
+          {
+            key: "apply",
+            type: "rich_text",
+            data: { eyebrow: "", title: "T", paragraphs: [], ...extra },
+          },
+        ],
+      });
+    const photo = "https://cdn.supachefs.com/site/kitchen.jpg";
+    const first = (r: ReturnType<typeof parse>) =>
+      (r.data?.sections[0].data as { image_url?: string | null }).image_url;
+    expect(first(parse({ image_url: photo }))).toBe(photo);
+    expect(first(parse({ image_url: null }))).toBeNull();
+    expect(first(parse({}))).toBeUndefined();
+  });
+  it("rich_text points: a list, an empty list and no key parse; a malformed point does not", () => {
+    const parse = (extra: object) =>
+      pageSchema.safeParse({
+        ...pageFixtures["become-a-chef"],
+        sections: [
+          {
+            key: "apply",
+            type: "rich_text",
+            data: { eyebrow: "", title: "T", paragraphs: [], ...extra },
+          },
+        ],
+      });
+    const points = (r: ReturnType<typeof parse>) =>
+      (r.data?.sections[0].data as { points?: unknown[] }).points;
+    const one = [{ title: "Free", body: "No fee." }];
+    expect(points(parse({ points: one }))).toEqual(one);
+    expect(points(parse({ points: [] }))).toEqual([]);
+    expect(points(parse({}))).toBeUndefined();
+    expect(parse({ points: [{ title: "No body" }] }).success).toBe(false);
+  });
   it.each(["customers", "chefs"] as const)("faqs %s", (a) => {
     expect(faqsSchema.safeParse(faqFixtures[a]).success).toBe(true);
   });

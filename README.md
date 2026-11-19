@@ -40,6 +40,17 @@ x-revalidate-secret: <SITE_REVALIDATE_SECRET>
 HMAC-SHA256 of `"<slug>|<exp>"` keyed with `SITE_PREVIEW_TOKEN`. It turns draft mode on for every page
 in that browser; `/api/draft?exit=1` turns it off.
 
+
+### Admin contract: become-a-chef "apply" section
+
+The form intro on `/become-a-chef` is a `rich_text` section with key `apply` on the `become-a-chef` page (see
+`website-plan/CONTRACT.md`). Data: `{ eyebrow, title, paragraphs[], image_url }`. In the Laravel admin it is the
+"Story text" block on the Become a Chef page, with a photo upload; fresh installs seed it and the
+`add_apply_section_to_become_a_chef` migration adds it to existing databases. `image_url` is optional: `null` or
+missing falls back to the bundled `/images/trust-and-safety.jpg`. The photo must be on a host allowed in
+`next.config.ts`. Draft content, including the photo, shows in preview (`/api/draft`) and goes live with the
+page's `page:become-a-chef` revalidation.
+
 ## Checks
 
 ```bash
