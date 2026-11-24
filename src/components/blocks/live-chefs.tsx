@@ -91,11 +91,15 @@ const MIN_WITH_PHOTO = 3;
 /**
  * The home page's chefs: the top 5 from the app (real names, areas, photos, ratings), not CMS copy.
  * Until at least three of them have a photo the whole section is left out: a lone test profile or a row of
- * initials tiles reads as fake proof for "a name and a face behind every dish".
+ * initials tiles reads as fake proof for "a name and a face behind every dish". Chefs the admin chose always show.
  */
 export async function LiveChefs({ id }: { id: string }) {
   const chefs = await getTopChefs();
-  if (chefs.filter((c) => c.image_url).length < MIN_WITH_PHOTO) return null;
+  if (
+    !chefs.some((c) => c.chosen) &&
+    chefs.filter((c) => c.image_url).length < MIN_WITH_PHOTO
+  )
+    return null;
 
   return (
     <Section id={id} inner="flex flex-col gap-6 lg:gap-10">

@@ -231,6 +231,8 @@ export const topChefsSchema = z.object({
       image_url: photo,
       rating: z.number().nullable(),
       reviews: z.number(),
+      // The admin picked this chef: the row shows without the photos the automatic one needs
+      chosen: z.boolean().default(false),
     }),
   ),
 });

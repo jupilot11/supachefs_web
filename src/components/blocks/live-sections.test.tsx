@@ -34,6 +34,7 @@ const chef = (n: number, over: Partial<TopChef> = {}): TopChef => ({
   image_url: `https://img.test/chef-${n}.jpg`,
   rating: 4.8,
   reviews: 12,
+  chosen: false,
   ...over,
 });
 const review = (n: number, over = {}) => ({
@@ -117,6 +118,16 @@ describe("the home chefs section", () => {
       noPhoto(5),
     ]);
     expect(await html(LiveChefs({ id: "chefs" }))).toBe("");
+  });
+
+  it("shows chefs the admin chose even with fewer than three photos", async () => {
+    vi.mocked(cms.getTopChefs).mockResolvedValue([
+      chef(1, { image_url: null, chosen: true }),
+      chef(2, { chosen: true }),
+    ]);
+    const out = await html(LiveChefs({ id: "chefs" }));
+    expect(items(out)).toBe(2);
+    expect(out).toContain(">N<"); // the photo-less pick gets its initials tile
   });
 
   it("shows at exactly three photos, with the photo-less chefs still in the row", async () => {
