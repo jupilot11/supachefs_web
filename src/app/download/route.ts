@@ -1,4 +1,5 @@
 import { getSettings } from "@/lib/cms";
+import { env } from "@/lib/env";
 
 // Request-time redirect: the no-JS download links point here, so it is never cached.
 export const dynamic = "force-dynamic";
@@ -12,6 +13,7 @@ export async function GET(request: Request) {
     : /Android/.test(ua)
       ? store.play_store_url
       : null;
-  // Desktop or an unset store URL: land on the home page's download section.
-  return Response.redirect(target ?? new URL("/#download", request.url), 307);
+  // Desktop or an unset store URL: land on the home page's download section. The public URL, not request.url:
+  // behind the host's proxy that is the bind address (https://0.0.0.0:3000).
+  return Response.redirect(target ?? new URL("/#download", env().NEXT_PUBLIC_SITE_URL), 307);
 }
